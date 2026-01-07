@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="wf_paymentterm_action" model="ir.actions.act_window">
+        <field name="name">WF Payment Terms</field>
+        <field name="res_model">wf.paymentterm</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <record id="view_wf_paymentterm_tree" model="ir.ui.view">
+        <field name="name">wf.paymentterm.tree</field>
+        <field name="model">wf.paymentterm</field>
+        <field name="arch" type="xml">
+            <tree string="WF Payment Terms" multi_edit="1">
+                <field name="name" />
+                <field name="code" />
+                <field name="waterfitters_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_wf_paymentterm_search" model="ir.ui.view">
+        <field name="name">wf.paymentterm.search</field>
+        <field name="model">wf.paymentterm</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="waterfitters_id" />
+            </search>
+        </field>
+    </record>
+
+    <menuitem id="menu_wf_paymentterm"
+              name="WF Payment Terms"
+              parent="contacts.menu_contacts"
+              sequence="6"
+              action="wf_paymentterm_action" />
+
+</odoo>

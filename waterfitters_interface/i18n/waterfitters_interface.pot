@@ -1,0 +1,387 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* waterfitters_interface
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-01 13:09+0000\n"
+"PO-Revision-Date: 2025-12-01 13:09+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: waterfitters_interface
+#: model_terms:ir.ui.view,arch_db:waterfitters_interface.res_config_settings_view_form
+msgid ""
+"<span class=\"o_form_label fw-bold\">\n"
+"                                Connection Settings to the Waterfitters API Interface\n"
+"                            </span>"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model_terms:ir.ui.view,arch_db:waterfitters_interface.res_config_settings_view_form
+msgid "Batch Limit for Customers Sync"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model_terms:ir.ui.view,arch_db:waterfitters_interface.res_config_settings_view_form
+msgid "Client ID"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model_terms:ir.ui.view,arch_db:waterfitters_interface.res_config_settings_view_form
+msgid "Client Secret"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_industry_group__code
+#: model:ir.model.fields,field_description:waterfitters_interface.field_wf_paymentterm__code
+msgid "Code"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model,name:waterfitters_interface.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model,name:waterfitters_interface.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model,name:waterfitters_interface.model_res_country
+msgid "Country"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_industry_group__create_uid
+#: model:ir.model.fields,field_description:waterfitters_interface.field_sync_waterfitters__create_uid
+#: model:ir.model.fields,field_description:waterfitters_interface.field_wf_paymentterm__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_industry_group__create_date
+#: model:ir.model.fields,field_description:waterfitters_interface.field_sync_waterfitters__create_date
+#: model:ir.model.fields,field_description:waterfitters_interface.field_wf_paymentterm__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_industry_group__display_name
+#: model:ir.model.fields,field_description:waterfitters_interface.field_sync_waterfitters__display_name
+#: model:ir.model.fields,field_description:waterfitters_interface.field_wf_paymentterm__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: waterfitters_interface
+#. odoo-python
+#: code:addons/waterfitters_interface/models/sync_waterfitters_orders.py:0
+#, python-format
+msgid "EXTRA DISCOUNT"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model_terms:ir.ui.view,arch_db:waterfitters_interface.res_config_settings_view_form
+msgid "Endpoints Root"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_industry_group__id
+#: model:ir.model.fields,field_description:waterfitters_interface.field_sync_waterfitters__id
+#: model:ir.model.fields,field_description:waterfitters_interface.field_wf_paymentterm__id
+msgid "ID"
+msgstr ""
+
+#. module: waterfitters_interface
+#. odoo-python
+#: code:addons/waterfitters_interface/models/res_config_settings.py:0
+#: model:ir.model.fields,help:waterfitters_interface.field_res_config_settings__waterfitters_customers_batch_limit
+#, python-format
+msgid ""
+"If the number is set to zero, all records will be sent in one cycle whatever"
+" the dimension of the sync."
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_res_country__in_eu
+msgid "In European Union?"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_res_partner__industry_group_id
+#: model:ir.model.fields,field_description:waterfitters_interface.field_res_users__industry_group_id
+msgid "Industry Group"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.actions.act_window,name:waterfitters_interface.industry_group_action
+#: model:ir.ui.menu,name:waterfitters_interface.menu_industry_groups
+#: model_terms:ir.ui.view,arch_db:waterfitters_interface.view_industry_group_tree
+msgid "Industry Groups"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_res_partner__international_vat_code
+#: model:ir.model.fields,field_description:waterfitters_interface.field_res_users__international_vat_code
+msgid "International Vat Code"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_industry_group__is_wf_primary_match
+msgid "Is Wf Primary Match"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_res_partner__wf_is_default_shipping_address
+#: model:ir.model.fields,field_description:waterfitters_interface.field_res_users__wf_is_default_shipping_address
+msgid "Is a default shipping address?"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_industry_group____last_update
+#: model:ir.model.fields,field_description:waterfitters_interface.field_sync_waterfitters____last_update
+#: model:ir.model.fields,field_description:waterfitters_interface.field_wf_paymentterm____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_industry_group__write_uid
+#: model:ir.model.fields,field_description:waterfitters_interface.field_sync_waterfitters__write_uid
+#: model:ir.model.fields,field_description:waterfitters_interface.field_wf_paymentterm__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_industry_group__write_date
+#: model:ir.model.fields,field_description:waterfitters_interface.field_sync_waterfitters__write_date
+#: model:ir.model.fields,field_description:waterfitters_interface.field_wf_paymentterm__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_industry_group__name
+#: model:ir.model.fields,field_description:waterfitters_interface.field_wf_paymentterm__name
+msgid "Name"
+msgstr ""
+
+#. module: waterfitters_interface
+#. odoo-python
+#: code:addons/waterfitters_interface/models/sync_waterfitters_orders.py:0
+#, python-format
+msgid "Paid on purchase with Credit Card."
+msgstr ""
+
+#. module: waterfitters_interface
+#. odoo-python
+#: code:addons/waterfitters_interface/models/sync_waterfitters_orders.py:0
+#, python-format
+msgid "Payment set as for the payment method."
+msgstr ""
+
+#. module: waterfitters_interface
+#. odoo-python
+#: code:addons/waterfitters_interface/models/sync_waterfitters_orders.py:0
+#, python-format
+msgid "Payment terms as specified by the user."
+msgstr ""
+
+#. module: waterfitters_interface
+#. odoo-python
+#: code:addons/waterfitters_interface/models/sync_waterfitters_orders.py:0
+#, python-format
+msgid "ROUNDING"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model_terms:ir.ui.view,arch_db:waterfitters_interface.view_partners_form
+msgid "Record Data"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model,name:waterfitters_interface.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model,name:waterfitters_interface.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model_terms:ir.ui.view,arch_db:waterfitters_interface.view_partners_form
+msgid "Sigla Data"
+msgstr ""
+
+#. module: waterfitters_interface
+#. odoo-python
+#: code:addons/waterfitters_interface/models/sync_waterfitters_orders.py:0
+#, python-format
+msgid "TRANSPORTATION"
+msgstr ""
+
+#. module: waterfitters_interface
+#. odoo-python
+#: code:addons/waterfitters_interface/models/waterfitters_shared.py:0
+#, python-format
+msgid ""
+"The connection data for the Waterfitters interface needs to be set in the "
+"Odoo Settings. Cannot proceed"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_res_partner__wf_is_ready_to_sync
+#: model:ir.model.fields,field_description:waterfitters_interface.field_res_users__wf_is_ready_to_sync
+msgid "To be synched with WF?"
+msgstr ""
+
+#. module: waterfitters_interface
+#. odoo-python
+#: code:addons/waterfitters_interface/models/res_partner.py:0
+#: code:addons/waterfitters_interface/models/sale_order_line.py:0
+#: code:addons/waterfitters_interface/models/sync_waterfitters_orders.py:0
+#: code:addons/waterfitters_interface/models/sync_waterfitters_orders.py:0
+#, python-format
+msgid "Unable to obtain a token - Cannot proceed"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.actions.act_window,name:waterfitters_interface.wf_paymentterm_action
+#: model:ir.ui.menu,name:waterfitters_interface.menu_wf_paymentterm
+#: model_terms:ir.ui.view,arch_db:waterfitters_interface.view_wf_paymentterm_tree
+msgid "WF Payment Terms"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_res_partner__wf_billing_address_id
+#: model:ir.model.fields,field_description:waterfitters_interface.field_res_users__wf_billing_address_id
+msgid "WF billing addr. ID"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_res_partner__wf_customer_user_id
+#: model:ir.model.fields,field_description:waterfitters_interface.field_res_users__wf_customer_user_id
+msgid "WF customer user ID"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_res_partner__wf_shipping_address_id
+#: model:ir.model.fields,field_description:waterfitters_interface.field_res_users__wf_shipping_address_id
+msgid "WF shipping addr. ID"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.actions.server,name:waterfitters_interface.ir_cron_mondeo_waterfitters_get_orders_ir_actions_server
+#: model:ir.cron,cron_name:waterfitters_interface.ir_cron_mondeo_waterfitters_get_orders
+msgid "Waterfitters - Get Orders"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.actions.server,name:waterfitters_interface.ir_cron_mondeo_waterfitters_get_customers_ir_actions_server
+#: model:ir.cron,cron_name:waterfitters_interface.ir_cron_mondeo_waterfitters_get_customers
+msgid "Waterfitters - Retrieve customers from Waterfitters (GET)"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.actions.server,name:waterfitters_interface.ir_cron_mondeo_waterfitters_get_customerusers_ir_actions_server
+#: model:ir.cron,cron_name:waterfitters_interface.ir_cron_mondeo_waterfitters_get_customerusers
+msgid ""
+"Waterfitters - Retrieve customerusers to be updated from Waterfitters (GET)"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.actions.server,name:waterfitters_interface.ir_cron_mondeo_waterfitters_patch_sale_order_lines_ir_actions_server
+#: model:ir.cron,cron_name:waterfitters_interface.ir_cron_mondeo_waterfitters_patch_sale_order_lines
+msgid "Waterfitters - Sync Sale Order Lines to Waterfitters (PATCH)"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.actions.server,name:waterfitters_interface.ir_cron_mondeo_waterfitters_post_customers_ir_actions_server
+#: model:ir.cron,cron_name:waterfitters_interface.ir_cron_mondeo_waterfitters_post_customers
+msgid "Waterfitters - Sync customers to Waterfitters (POST)"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_res_config_settings__waterfitters_client_id
+msgid "Waterfitters Client ID"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_res_config_settings__waterfitters_client_secret
+msgid "Waterfitters Client Secret"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_res_config_settings__waterfitters_customers_batch_limit
+msgid "Waterfitters Customers Batch Limit"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model_terms:ir.ui.view,arch_db:waterfitters_interface.view_partners_form
+msgid "Waterfitters Data"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_res_config_settings__waterfitters_endpoints_url
+msgid "Waterfitters Endpoints Url"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_industry_group__waterfitters_id
+#: model:ir.model.fields,field_description:waterfitters_interface.field_res_partner__waterfitters_id
+#: model:ir.model.fields,field_description:waterfitters_interface.field_res_users__waterfitters_id
+#: model:ir.model.fields,field_description:waterfitters_interface.field_wf_paymentterm__waterfitters_id
+msgid "Waterfitters ID"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model_terms:ir.ui.view,arch_db:waterfitters_interface.res_config_settings_view_form
+msgid "Waterfitters Interface"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_res_partner__wf_account_id
+#: model:ir.model.fields,field_description:waterfitters_interface.field_res_users__wf_account_id
+msgid "Waterfitters account ID"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_sale_order_line__wf_order_line_item_id
+msgid "Wf Order Line Item"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model.fields,field_description:waterfitters_interface.field_sale_order_line__wf_order_line_to_be_synched
+msgid "Wf Order Line To Be Synched"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model_terms:ir.ui.view,arch_db:waterfitters_interface.res_config_settings_view_form
+msgid "https://www.example.com"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model,name:waterfitters_interface.model_industry_group
+msgid "industry.group"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model,name:waterfitters_interface.model_sync_waterfitters
+msgid "sync.waterfitters"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model,name:waterfitters_interface.model_waterfitters_shared
+msgid "waterfitters.shared"
+msgstr ""
+
+#. module: waterfitters_interface
+#: model:ir.model,name:waterfitters_interface.model_wf_paymentterm
+msgid "wf.paymentterm"
+msgstr ""

@@ -1,0 +1,11 @@
+<odoo>
+    <template id="oriens_report_layout" name="Oriens Report Layout - Report Layout extension" inherit_id="web.internal_layout">
+      <xpath expr="//div[@class='col-3']" position="replace" t-if="oriens_year">
+        <div class="col-3"/>
+      </xpath>
+      <xpath expr="//span[@class='topage']" position="replace" t-if="oriens_year">
+            <li class="list-inline-item"><span t-esc="oriens_year"/></li>
+      </xpath>
+	</template>
+
+</odoo>

@@ -1,0 +1,18 @@
+<odoo>
+    <record id="stock_picking_batch_inherit_view_search" model="ir.ui.view">
+        <field name="name">stock.picking.batch.kanban.inherit</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_barcode_picking_batch.stock_barcode_batch_picking_view_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="kanban_color" invisible="1"/>
+            </xpath>
+            <xpath expr="//t/div" position="attributes">
+                <attribute name="class"/>
+                <attribute name="t-attf-class">
+                oe_kanban_card {{record.kanban_color.raw_value}} oe_kanban_global_click
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

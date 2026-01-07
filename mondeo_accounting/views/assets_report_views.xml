@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- Report action -->
+    <record id="digiduu_assets_report_action" model="ir.actions.report">
+        <field name="name">Assets Report</field>
+        <field name="model">report.assets_report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">mondeo_accounting.assets_report</field>
+        <field name="print_report_name">'Assets Report'</field>
+    </record>
+
+	<!-- Report template -->
+	<template id="assets_report">
+        <t t-set="company" t-value="env.company"/>
+		<t t-call="web.html_container">
+			<t t-call="web.external_layout">
+				<div class="page">
+                    <style> .dg2-font-20 { font-size: 20px; } </style>
+					<div class="oe_structure">
+						<t t-foreach="categories" t-as="category">
+							<div class="dg2-bottom-20 py-4" style="text-align:center;font-size: 25px;">
+								<strong><span>Asset Category:</span> <span t-esc="category.get('name', '')"/></strong>
+							</div>
+
+							<t t-foreach="category['assets']" t-as="asset" t-if="category['assets']">
+								<div class="dg2-font-20 py-3">
+									<strong><span>Asset Name:</span> <span t-esc="asset['asset'].display_name"/></strong>
+								</div>
+
+								<table class="table w-100 table-bordered text-center dg2-bottom-20 py-2">
+									<tr class="bg-secondary text-light">
+										<td><strong>Code</strong></td>
+										<td><strong>Purchase value</strong></td>
+										<td><strong>Asset date</strong></td>
+                                        <td><strong>Ordinary rate</strong></td>
+                                        <td><strong>First year halving</strong></td>
+									</tr>
+									<tr>
+										<td>
+                                            <!-- TODO: x_studio field, to be deleted -->
+											<p><strong t-esc="asset['asset'].x_studio_codice or '-'"/></p>
+										</td>
+										<td>
+											<p><strong t-field="asset['asset'].original_value"/></p>
+										</td>
+										<td>
+											<p><strong t-field="asset['asset'].acquisition_date"/></p>
+										</td>
+                                        <td>
+											<p><strong t-esc="asset['ordinary_rate']"/></p>
+										</td>
+                                        <td>
+											<p><strong t-esc="asset['first_year_halving']"/></p>
+										</td>
+									</tr>
+								</table>
+
+								<table class="table w-100 table-bordered text-center py-2" style="margin-bottom:30px;">
+									<tr class="bg-secondary text-light">
+										<td><strong>Year</strong></td>
+										<td><strong>Depreciation</strong></td>
+										<td><strong>Cumulative depreciation</strong></td>
+										<td><strong>Residual value</strong></td>
+                                        <td><strong>Depreciated %</strong></td>
+									</tr>
+                                    <tr t-foreach="asset['depreciation_lines']" t-as="line">
+										<td><span t-esc="line.date.strftime('%Y') if line.date else ''"/></td>
+										<td><span t-field="line.depreciation_value"/></td>
+										<td><span t-field="line.asset_depreciated_value"/></td>
+										<td><span t-field="line.asset_remaining_value"/></td>
+                                        <td><span t-esc="'%.2f' % (line.depreciation_value / asset['asset'].original_value * 100)"/></td>
+									</tr>
+								</table>
+							</t>
+
+							<div class="dg2-font-20 dg2-bottom-15 py-2" style="text-align:center;">
+								<strong>Category Totals</strong>
+							</div>
+
+							<table class="table w-100 table-bordered text-center py-2">
+								<tr class="bg-secondary text-light">
+                                    <td><strong>Type</strong></td>
+                                    <td><strong>Depreciation</strong></td>
+                                    <td><strong>Cumulative depreciation</strong></td>
+                                    <td><strong>Residual value</strong></td>
+                                    <td><strong>Depreciated %</strong></td>
+								</tr>
+								<tr>
+                                    <td><strong t-esc="asset['asset'].x_studio_codice or '-'"/></td>
+                                    <td><strong t-esc="'%.2f' % category['totals']['depreciation']"/></td>
+									<td><strong t-esc="'%.2f' % category['totals']['cumulative_depreciation']"/></td>
+									<td><strong t-esc="'%.2f' % category['totals']['residual_value']"/></td>
+									<td><strong t-esc="'%.2f' % category['totals']['perc_depreciated']"/></td>
+								</tr>
+							</table>
+
+						</t>
+					</div>
+				</div>
+			</t>
+		</t>
+	</template>
+</odoo>

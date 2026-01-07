@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <record id="view_partners_form" model="ir.ui.view">
+      <field name="name">view.res.partner.form.waterfitters</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field eval="100" name="priority"/>
+      <field name="arch" type="xml">
+         <xpath expr="//field[@name='vat']" position="after">
+            <field name="industry_group_id" widget="many2one"/>
+            <field name="international_vat_code"/>
+         </xpath>
+         <xpath expr="//notebook" position="inside">
+            <page string="Waterfitters Data" name="res_partner_wf_page">
+               <group name="res_partner_wf_group">
+                  <group name="res_partner_wf_group_left" string="Record Data">
+                     <field name="waterfitters_id" readonly="1"/>
+                     <field name="wf_account_id" readonly="1"/>
+                     <field name="wf_is_ready_to_sync"/>
+                  </group>
+                  <group name="res_partner_wf_group_right">
+                     <field name="wf_billing_address_id" readonly="1"/>
+                     <field name="wf_shipping_address_id" readonly="1"/>
+                     <field name="wf_customer_user_id" readonly="1"/>
+                     <field name="wf_is_default_shipping_address" readonly="1" attrs="{'invisible': [('type', '!=', 'delivery')]}"/>
+                  </group>
+               </group>
+            </page>
+            <page string="Sigla Data" name="res_partner_sigla_page">
+               <group name="res_partner_sigla_group">
+                  <group name="res_partner_sigla_group_left" string="Record Data">
+                     <field name="x_studio_codice_soggetto" readonly="1"/>
+                  </group>
+                  <group name="res_partner_sigla_group_right">
+                     <!-- Placeholder-->
+                  </group>
+               </group>
+            </page>
+         </xpath>
+      </field>
+   </record>
+</odoo>

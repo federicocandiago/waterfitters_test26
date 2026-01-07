@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="industry_group_action" model="ir.actions.act_window">
+        <field name="name">Industry Groups</field>
+        <field name="res_model">industry.group</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <record id="view_industry_group_tree" model="ir.ui.view">
+        <field name="name">industry.groups.tree</field>
+        <field name="model">industry.group</field>
+        <field name="arch" type="xml">
+            <tree string="Industry Groups" multi_edit="1">
+                <field name="name" />
+                <field name="code" />
+                <field name="waterfitters_id" />
+                <field name="is_wf_primary_match" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_industry_group_search" model="ir.ui.view">
+        <field name="name">industry.groups.search</field>
+        <field name="model">industry.group</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="waterfitters_id" />
+            </search>
+        </field>
+    </record>
+
+   <menuitem id="menu_industry_groups" name="Industry Groups" parent="contacts.menu_contacts" sequence="4"  action="industry_group_action" />
+
+</odoo>

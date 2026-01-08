@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-inherit="stock_barcode.LineQuantity" t-inherit-mode="extension">
+        <xpath expr="//div[@name='quantity']" position="after">
+            <div>
+                <span>TEST ORIENS</span>
+            </div>
+        </xpath>
+    </t>
+</templates>

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="industry_group_0000" model="industry.group">
+            <field name="name">0000 - PRODUTTORE</field>
+            <field name="code">OEM</field>
+            <field name="waterfitters_id">9</field>
+            <field name="is_wf_primary_match">True</field>
+        </record>
+
+        <record id="industry_group_0001" model="industry.group">
+            <field name="name">0001 - OEM MACCHINARI VARI</field>
+            <field name="code">OEM</field>
+            <field name="waterfitters_id">9</field>
+            <field name="is_wf_primary_match">False</field>
+        </record>
+
+        <record id="industry_group_0002" model="industry.group">
+            <field name="name">0002 - OEM COSTRUTTORI ELETTROPOMPE</field>
+            <field name="code">OEM</field>
+            <field name="waterfitters_id">9</field>
+            <field name="is_wf_primary_match">False</field>
+        </record>
+
+        <record id="industry_group_0003" model="industry.group">
+            <field name="name">0003 - OEM RISCALDAMENTO</field>
+            <field name="code">OEM</field>
+            <field name="waterfitters_id">9</field>
+            <field name="is_wf_primary_match">False</field>
+        </record>
+
+        <record id="industry_group_0004" model="industry.group">
+            <field name="name">0004 - OEM HVAC-R</field>
+            <field name="code">OEM</field>
+            <field name="waterfitters_id">9</field>
+            <field name="is_wf_primary_match">False</field>
+        </record>
+
+        <record id="industry_group_0005" model="industry.group">
+            <field name="name">0005 - ENTI PUBBLICI MUNICIPALIZZATI</field>
+            <field name="code">NO</field>
+            <field name="waterfitters_id">1</field>
+            <field name="is_wf_primary_match">False</field>
+        </record>
+
+        <record id="industry_group_0006" model="industry.group">
+            <field name="name">0006 - DISTRIBUTORI VALVOLAME</field>
+            <field name="code">RIVVALV</field>
+            <field name="waterfitters_id">3</field>
+            <field name="is_wf_primary_match">True</field>
+        </record>
+
+        <record id="industry_group_0007" model="industry.group">
+            <field name="name">0007 - PARTNER COMMERCIALI</field>
+            <field name="code">RIVVALG</field>
+            <field name="waterfitters_id">7</field>
+            <field name="is_wf_primary_match">False</field>
+        </record>
+
+        <record id="industry_group_0008" model="industry.group">
+            <field name="name">0008 - RIVENDITORI ITS</field>
+            <field name="code">RIVGEN</field>
+            <field name="waterfitters_id">4</field>
+            <field name="is_wf_primary_match">False</field>
+        </record>
+
+        <record id="industry_group_0009" model="industry.group">
+            <field name="name">0009 - RIVENDITORI HVAC</field>
+            <field name="code">RIVHVAC</field>
+            <field name="waterfitters_id">5</field>
+            <field name="is_wf_primary_match">True</field>
+        </record>
+
+        <record id="industry_group_0010" model="industry.group">
+            <field name="name">0010 - RIVENDITORI GENERICI</field>
+            <field name="code">RIVGEN</field>
+            <field name="waterfitters_id">4</field>
+            <field name="is_wf_primary_match">True</field>
+        </record>
+
+        <record id="industry_group_0011" model="industry.group">
+            <field name="name">0011 - GRUPPI DI DISTRIBUZIONE</field>
+            <field name="code">RIVGRUP</field>
+            <field name="waterfitters_id">7</field>
+            <field name="is_wf_primary_match">True</field>
+        </record>
+
+        <record id="industry_group_0012" model="industry.group">
+            <field name="name">0012 - INSTALLATORI GRANDI</field>
+            <field name="code">INSGR</field>
+            <field name="waterfitters_id">10</field>
+            <field name="is_wf_primary_match">False</field>
+        </record>
+
+        <record id="industry_group_0013" model="industry.group">
+            <field name="name">0013 - WEBSHOPS</field>
+            <field name="code">WEBSHOP</field>
+            <field name="waterfitters_id">8</field>
+            <field name="is_wf_primary_match">True</field>
+        </record>
+
+        <record id="industry_group_0014" model="industry.group">
+            <field name="name">0014 - DISTRIBUTORI POMPE</field>
+            <field name="code">RIVPOMPE</field>
+            <field name="waterfitters_id">2</field>
+            <field name="is_wf_primary_match">True</field>
+        </record>
+
+        <record id="industry_group_0015" model="industry.group">
+            <field name="name">0015 - RIV.PROD. INDUSTRIALI</field>
+            <field name="code">RIVINDU</field>
+            <field name="waterfitters_id">6</field>
+            <field name="is_wf_primary_match">True</field>
+        </record>
+
+        <record id="industry_group_0016" model="industry.group">
+            <field name="name">0016 - INSTALLATORI PICCOLI</field>
+            <field name="code">INS</field>
+            <field name="waterfitters_id">10</field>
+            <field name="is_wf_primary_match">True</field>
+        </record>
+
+        <record id="industry_group_0017" model="industry.group">
+            <field name="name">0017 - END USERS</field>
+            <field name="code">UTFIN</field>
+            <field name="waterfitters_id">1</field>
+            <field name="is_wf_primary_match">False</field>
+        </record>
+
+        <record id="industry_group_0018" model="industry.group">
+            <field name="name">0018 - STUDIO DI PROGETTAZIONE</field>
+            <field name="code">NO</field>
+            <field name="waterfitters_id">1</field>
+            <field name="is_wf_primary_match">False</field>
+        </record>
+
+        <record id="industry_group_0019" model="industry.group">
+            <field name="name">0019 - APC</field>
+            <field name="code">UTFIN</field>
+            <field name="waterfitters_id">1</field>
+            <field name="is_wf_primary_match">False</field>
+        </record>
+
+        <record id="industry_group_0020" model="industry.group">
+            <field name="name">0020 - SYSTEM INTEGRATOR</field>
+            <field name="code">OEM</field>
+            <field name="waterfitters_id">9</field>
+            <field name="is_wf_primary_match">False</field>
+        </record>
+
+        <record id="industry_group_0022" model="industry.group">
+            <field name="name">0022 - ELETTROLUCIDATURA</field>
+            <field name="code">NO</field>
+            <field name="waterfitters_id">1</field>
+            <field name="is_wf_primary_match">False</field>
+        </record>
+
+        <record id="industry_group_0023" model="industry.group">
+            <field name="name">0023 - GENERAL CONTRACTOR</field>
+            <field name="code">RIVGRUP</field>
+            <field name="waterfitters_id">7</field>
+            <field name="is_wf_primary_match">False</field>
+        </record>
+
+        <record id="industry_group_0024" model="industry.group">
+            <field name="name">0024 - END USERS WEB</field>
+            <field name="code">UTFIN</field>
+            <field name="waterfitters_id">8</field>
+            <field name="is_wf_primary_match">True</field>
+        </record>
+
+        <record id="industry_group_10001" model="industry.group">
+            <field name="name">10001 - IMPORTATORE</field>
+            <field name="code">RIVGEN</field>
+            <field name="waterfitters_id">4</field>
+            <field name="is_wf_primary_match">False</field>
+        </record>
+
+        <record id="industry_group_10002" model="industry.group">
+            <field name="name">10002 - DISTRIBUTORE ESCLUSIVO</field>
+            <field name="code">RIVGEN</field>
+            <field name="waterfitters_id">1</field>
+            <field name="is_wf_primary_match">False</field>
+        </record>
+
+        <record id="industry_group_10003" model="industry.group">
+            <field name="name">10003 - DISTRIBUTORE GENERICO</field>
+            <field name="code">RIVGEN</field>
+            <field name="waterfitters_id">4</field>
+            <field name="is_wf_primary_match">False</field>
+        </record>
+
+        <record id="industry_group_10004" model="industry.group">
+            <field name="name">10004 - TERZISTA</field>
+            <field name="code">NO</field>
+            <field name="waterfitters_id">1</field>
+            <field name="is_wf_primary_match">False</field>
+        </record>
+
+        <record id="industry_group_10005" model="industry.group">
+            <field name="name">10005 - RIVENDITORE/GROSSISTA</field>
+            <field name="code">RIVGRUP</field>
+            <field name="waterfitters_id">7</field>
+            <field name="is_wf_primary_match">False</field>
+        </record>
+
+        <record id="industry_group_10006" model="industry.group">
+            <field name="name">10006 - FORNITORE DI SERVIZI</field>
+            <field name="code">NO</field>
+            <field name="waterfitters_id">1</field>
+            <field name="is_wf_primary_match">False</field>
+        </record>
+
+        <record id="industry_group_10007" model="industry.group">
+            <field name="name">10007 - FORNITORE DI PROD.CONSUMO</field>
+            <field name="code">NO</field>
+            <field name="waterfitters_id">1</field>
+            <field name="is_wf_primary_match">False</field>
+        </record>
+
+        <record id="industry_group_10008" model="industry.group">
+            <field name="name">10008 - ALTRO</field>
+            <field name="code">UTFIN</field>
+            <field name="waterfitters_id">1</field>
+            <field name="is_wf_primary_match">True</field>
+        </record>
+
+    </data>
+</odoo>

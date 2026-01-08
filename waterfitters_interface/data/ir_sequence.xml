@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="seq_partner_waterfitters_id" model="ir.sequence">
+        <field name="name">Partner Waterfitters</field>
+        <field name="code">seq.partner.waterfitters.id</field>
+        <field name="prefix">CW</field>
+        <field name="padding">6</field>
+        <field name="implementation">standard</field>
+        <field name="number_increment">1</field>
+        <field name="number_next" eval="1"/>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

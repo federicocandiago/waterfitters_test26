@@ -1,0 +1,146 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mondeo_iubenda_interface
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-19 16:44+0000\n"
+"PO-Revision-Date: 2025-11-19 16:44+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mondeo_iubenda_interface
+#: model_terms:ir.ui.view,arch_db:mondeo_iubenda_interface.res_config_settings_view_form
+msgid ""
+"<span class=\"o_form_label fw-bold\">\n"
+"                                Connection Settings to the Iubenda APIs\n"
+"                            </span>\n"
+"                            <span class=\"o_form_label mt-2\">\n"
+"                                For each service for which the Iubenda API Key is provided, the privacy settings for\n"
+"                                each user stored in the Iubenda database will be synchronised in Odoo.\n"
+"                            </span>"
+msgstr ""
+
+#. module: mondeo_iubenda_interface
+#: model:ir.model,name:mondeo_iubenda_interface.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: mondeo_iubenda_interface
+#: model:ir.model.fields,field_description:mondeo_iubenda_interface.field_res_partner__mondeo_web_consent
+#: model:ir.model.fields,field_description:mondeo_iubenda_interface.field_res_users__mondeo_web_consent
+msgid "Consent"
+msgstr ""
+
+#. module: mondeo_iubenda_interface
+#: model:ir.model,name:mondeo_iubenda_interface.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: mondeo_iubenda_interface
+#: model:ir.model.fields,field_description:mondeo_iubenda_interface.field_res_partner__wf_contract_clauses
+#: model:ir.model.fields,field_description:mondeo_iubenda_interface.field_res_users__wf_contract_clauses
+msgid "Contract Clauses"
+msgstr ""
+
+#. module: mondeo_iubenda_interface
+#: model:ir.model.fields,field_description:mondeo_iubenda_interface.field_res_partner__wf_data_privacy
+#: model:ir.model.fields,field_description:mondeo_iubenda_interface.field_res_users__wf_data_privacy
+msgid "Data Privacy"
+msgstr ""
+
+#. module: mondeo_iubenda_interface
+#: model:ir.model.fields,field_description:mondeo_iubenda_interface.field_res_partner__mondeo_web_form_en
+#: model:ir.model.fields,field_description:mondeo_iubenda_interface.field_res_users__mondeo_web_form_en
+msgid "Form - English"
+msgstr ""
+
+#. module: mondeo_iubenda_interface
+#: model:ir.model.fields,field_description:mondeo_iubenda_interface.field_res_partner__mondeo_web_form_de
+#: model:ir.model.fields,field_description:mondeo_iubenda_interface.field_res_users__mondeo_web_form_de
+msgid "Form - German"
+msgstr ""
+
+#. module: mondeo_iubenda_interface
+#: model:ir.model.fields,field_description:mondeo_iubenda_interface.field_res_partner__mondeo_web_form_it
+#: model:ir.model.fields,field_description:mondeo_iubenda_interface.field_res_users__mondeo_web_form_it
+msgid "Form - Italian"
+msgstr ""
+
+#. module: mondeo_iubenda_interface
+#: model:ir.model.fields,field_description:mondeo_iubenda_interface.field_res_partner__wf_general_conditions
+#: model:ir.model.fields,field_description:mondeo_iubenda_interface.field_res_users__wf_general_conditions
+msgid "General Conditions"
+msgstr ""
+
+#. module: mondeo_iubenda_interface
+#. odoo-python
+#: code:addons/mondeo_iubenda_interface/models/res_partner.py:0
+#: code:addons/mondeo_iubenda_interface/models/res_partner.py:0
+#, python-format
+msgid "Imported from Iubenda (%s) on date: %s"
+msgstr ""
+
+#. module: mondeo_iubenda_interface
+#: model_terms:ir.ui.view,arch_db:mondeo_iubenda_interface.view_partners_form
+msgid "Iubenda Data"
+msgstr ""
+
+#. module: mondeo_iubenda_interface
+#: model_terms:ir.ui.view,arch_db:mondeo_iubenda_interface.res_config_settings_view_form
+msgid "Iubenda Integration"
+msgstr ""
+
+#. module: mondeo_iubenda_interface
+#: model_terms:ir.ui.view,arch_db:mondeo_iubenda_interface.view_partners_form
+msgid "Mondeo Website"
+msgstr ""
+
+#. module: mondeo_iubenda_interface
+#. odoo-python
+#: code:addons/mondeo_iubenda_interface/models/res_partner.py:0
+#, python-format
+msgid "Mondeo website"
+msgstr ""
+
+#. module: mondeo_iubenda_interface
+#: model:ir.model.fields,field_description:mondeo_iubenda_interface.field_res_config_settings__iubenda_mondeo_web_apikey
+msgid "Mondeo website api key"
+msgstr ""
+
+#. module: mondeo_iubenda_interface
+#: model:ir.model.fields,field_description:mondeo_iubenda_interface.field_res_partner__wf_offers_and_promotions
+#: model:ir.model.fields,field_description:mondeo_iubenda_interface.field_res_users__wf_offers_and_promotions
+msgid "Offers and promotions"
+msgstr ""
+
+#. module: mondeo_iubenda_interface
+#: model:ir.model.fields,field_description:mondeo_iubenda_interface.field_res_partner__mondeo_web_privacy
+#: model:ir.model.fields,field_description:mondeo_iubenda_interface.field_res_users__mondeo_web_privacy
+msgid "Privacy"
+msgstr ""
+
+#. module: mondeo_iubenda_interface
+#: model:ir.actions.server,name:mondeo_iubenda_interface.ir_cron_mondeo_waterfitters_get_iubenda_ir_actions_server
+#: model:ir.cron,cron_name:mondeo_iubenda_interface.ir_cron_mondeo_waterfitters_get_iubenda
+msgid "Waterfitters - Sync partners data from Iubenda (GET)"
+msgstr ""
+
+#. module: mondeo_iubenda_interface
+#. odoo-python
+#: code:addons/mondeo_iubenda_interface/models/res_partner.py:0
+#: model_terms:ir.ui.view,arch_db:mondeo_iubenda_interface.view_partners_form
+#, python-format
+msgid "Waterfitters Portal"
+msgstr ""
+
+#. module: mondeo_iubenda_interface
+#: model:ir.model.fields,field_description:mondeo_iubenda_interface.field_res_config_settings__iubenda_wf_portal_apikey
+msgid "Waterfitters Portal api key"
+msgstr ""

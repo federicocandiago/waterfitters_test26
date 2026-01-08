@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="wf_shippingmethod_order_amount_shipping_3" model="wf.shippingmethod">
+            <field name="name">order_amount_shipping_3</field>
+            <field name="method">Vettore</field>
+            <field name="incoterm">011</field>
+        </record>
+
+        <record id="wf_shippingmethod_flat_rate_7" model="wf.shippingmethod">
+            <field name="name">flat_rate_7</field>
+            <field name="method">Destinatario</field>
+            <field name="incoterm">012</field>
+        </record>
+
+        <record id="wf_shippingmethod_flat_rate_10" model="wf.shippingmethod">
+            <field name="name">flat_rate_10</field>
+            <field name="method">Destinatario</field>
+            <field name="incoterm">012</field>
+        </record>
+
+    </data>
+</odoo>

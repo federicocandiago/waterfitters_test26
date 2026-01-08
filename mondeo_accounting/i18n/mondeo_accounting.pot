@@ -1,0 +1,429 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mondeo_accounting
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-14 12:13+0000\n"
+"PO-Revision-Date: 2025-11-14 12:13+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mondeo_accounting
+#: model:ir.actions.report,print_report_name:mondeo_accounting.digiduu_assets_report_action
+msgid "'Assets Report'"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model_terms:ir.ui.view,arch_db:mondeo_accounting.assets_report
+msgid "<span>Asset Category:</span>"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model_terms:ir.ui.view,arch_db:mondeo_accounting.assets_report
+msgid "<span>Asset Name:</span>"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model_terms:ir.ui.view,arch_db:mondeo_accounting.assets_report
+msgid "<strong>Category Totals</strong>"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model_terms:ir.ui.view,arch_db:mondeo_accounting.assets_report
+msgid "<strong>Code</strong>"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model_terms:ir.ui.view,arch_db:mondeo_accounting.assets_report
+msgid "<strong>Cumulative depreciation</strong>"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model_terms:ir.ui.view,arch_db:mondeo_accounting.assets_report
+msgid "<strong>Depreciated %</strong>"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model_terms:ir.ui.view,arch_db:mondeo_accounting.assets_report
+msgid "<strong>Depreciation</strong>"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model_terms:ir.ui.view,arch_db:mondeo_accounting.assets_report
+msgid "<strong>Asset date</strong>"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model_terms:ir.ui.view,arch_db:mondeo_accounting.assets_report
+msgid "<strong>First year halving</strong>"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model_terms:ir.ui.view,arch_db:mondeo_accounting.assets_report
+msgid "<strong>Ordinary rate</strong>"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model_terms:ir.ui.view,arch_db:mondeo_accounting.assets_report
+msgid "<strong>Purchase value</strong>"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model_terms:ir.ui.view,arch_db:mondeo_accounting.assets_report
+msgid "<strong>Residual value</strong>"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model_terms:ir.ui.view,arch_db:mondeo_accounting.assets_report
+msgid "<strong>Type</strong>"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model_terms:ir.ui.view,arch_db:mondeo_accounting.assets_report
+msgid "<strong>Year</strong>"
+msgstr ""
+
+#. module: mondeo_accounting
+#. odoo-python
+#: code:addons/mondeo_accounting/wizard/asset_modify.py:0
+#, python-format
+msgid "A gross increase has been created: %s"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model_terms:ir.ui.view,arch_db:mondeo_accounting.view_account_asset_form
+msgid "ABC:A"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_account_asset__accounting_value
+msgid "Accounting Value"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_digiduu_assets_report_wizard__asset_ids
+msgid "Asset"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_digiduu_assets_report_wizard__category_ids
+msgid "Asset Category"
+msgstr ""
+
+#. module: mondeo_accounting
+#. odoo-python
+#: code:addons/mondeo_accounting/wizard/asset_modify.py:0
+#, python-format
+msgid "Asset unpaused. %s"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model,name:mondeo_accounting.model_account_asset
+msgid "Asset/Revenue Recognition"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.actions.act_window,name:mondeo_accounting.digiduu_assets_report_wizard_action
+#: model:ir.actions.report,name:mondeo_accounting.digiduu_assets_report_action
+#: model:ir.ui.menu,name:mondeo_accounting.menu_digiduu_assets_report
+#: model_terms:ir.ui.view,arch_db:mondeo_accounting.digdiuu_assets_report_wizard_view
+msgid "Assets Report"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_account_asset__assets_type
+msgid "Assets Type"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model_terms:ir.ui.view,arch_db:mondeo_accounting.digdiuu_assets_report_wizard_view
+msgid "Assets settings"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_digiduu_assets_report_wizard__report_date
+msgid "Assets value up to date"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model_terms:ir.ui.view,arch_db:mondeo_accounting.digdiuu_assets_report_wizard_view
+msgid "Cancel"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_account_asset__code
+msgid "Code"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model_terms:ir.ui.view,arch_db:mondeo_accounting.view_account_asset_form
+msgid "Standard %"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_digiduu_assets_report_wizard__company_id
+msgid "Company"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_digiduu_assets_report_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_digiduu_assets_report_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model_terms:ir.ui.view,arch_db:mondeo_accounting.digdiuu_assets_report_wizard_view
+msgid "Date settings"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_account_asset__delete_residual_calculation
+msgid "Delete Residual Calculation"
+msgstr ""
+
+#. module: mondeo_accounting
+#. odoo-python
+#: code:addons/mondeo_accounting/wizard/asset_modify.py:0
+#, python-format
+msgid "Depreciation board modified %s"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_digiduu_assets_report_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mondeo_accounting
+#. odoo-python
+#: code:addons/mondeo_accounting/wizard/asset_modify.py:0
+#, python-format
+msgid "Dispose"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,help:mondeo_accounting.field_account_asset__delete_residual_calculation
+msgid ""
+"Enables residual calculation for prorata, useful for handling special "
+"depreciation cases."
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_account_asset__first_year_halving
+msgid "First Year Halving"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_account_asset__first_year_percentage
+msgid "First Year Percentage"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_account_asset__gain_account_id
+msgid "Gain Account"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model_terms:ir.ui.view,arch_db:mondeo_accounting.view_account_asset_form
+msgid "Gain/Loss Accounts"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_digiduu_assets_report_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,help:mondeo_accounting.field_account_asset__normalize_dates_to_jan_first
+msgid ""
+"If checked, prorata dates are normalized to January 1st of the current year."
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields.selection,name:mondeo_accounting.selection__account_asset__assets_type__immaterial
+msgid "Intangible"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_account_asset__is_account_asset_child
+msgid "Is Account Asset Child"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model,name:mondeo_accounting.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_digiduu_assets_report_wizard____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_digiduu_assets_report_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_digiduu_assets_report_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_account_asset__loss_account_id
+msgid "Loss Account"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields.selection,name:mondeo_accounting.selection__account_asset__assets_type__material
+msgid "Material"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model,name:mondeo_accounting.model_asset_modify
+msgid "Modify Asset"
+msgstr ""
+
+#. module: mondeo_accounting
+#. odoo-python
+#: code:addons/mondeo_accounting/report/assets_report.py:0
+#, python-format
+msgid "No Category"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_account_asset__prefix_code
+msgid "Prefix Code"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model_terms:ir.ui.view,arch_db:mondeo_accounting.digdiuu_assets_report_wizard_view
+msgid "Print Report"
+msgstr ""
+
+#. module: mondeo_accounting
+#. odoo-python
+#: code:addons/mondeo_accounting/wizard/asset_modify.py:0
+#: code:addons/mondeo_accounting/wizard/asset_modify.py:0
+#, python-format
+msgid "Re-evaluate"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_account_asset__parent_account_asset_id
+msgid "Related Asset"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_account_asset__normalize_dates_to_jan_first
+msgid "Reset PRORATA Dates (Jan 1st)"
+msgstr ""
+
+#. module: mondeo_accounting
+#. odoo-python
+#: code:addons/mondeo_accounting/wizard/asset_modify.py:0
+#, python-format
+msgid "Resume"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_asset_modify__revaluation_asset
+msgid "Revaluation Asset"
+msgstr ""
+
+#. module: mondeo_accounting
+#. odoo-python
+#: code:addons/mondeo_accounting/wizard/asset_modify.py:0
+#, python-format
+msgid "Sell"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_account_asset__sequence_code
+#: model_terms:ir.ui.view,arch_db:mondeo_accounting.view_account_asset_form
+msgid "Sequence Code"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_account_asset__sequence_number
+msgid "Sequence Number"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model.fields,field_description:mondeo_accounting.field_account_asset__standard_coefficient
+msgid "Standard Coefficient"
+msgstr ""
+
+#. module: mondeo_accounting
+#. odoo-python
+#: code:addons/mondeo_accounting/wizard/asset_modify.py:0
+#, python-format
+msgid ""
+"The revaluation date must be 31/12 of the year of the first posted "
+"depreciation entry: %s"
+msgstr ""
+
+#. module: mondeo_accounting
+#. odoo-python
+#: code:addons/mondeo_accounting/wizard/asset_modify.py:0
+#, python-format
+msgid ""
+"There are unposted depreciations prior to the selected operation date, "
+"please deal with them first."
+msgstr ""
+
+#. module: mondeo_accounting
+#. odoo-python
+#: code:addons/mondeo_accounting/report/assets_report.py:0
+#, python-format
+msgid "Unable to generate the report: no correct data has been passed."
+msgstr ""
+
+#. module: mondeo_accounting
+#. odoo-python
+#: code:addons/mondeo_accounting/wizard/asset_modify.py:0
+#, python-format
+msgid "Value decrease for: %(asset)s"
+msgstr ""
+
+#. module: mondeo_accounting
+#. odoo-python
+#: code:addons/mondeo_accounting/wizard/asset_modify.py:0
+#: code:addons/mondeo_accounting/wizard/asset_modify.py:0
+#, python-format
+msgid "Value increase for: %(asset)s"
+msgstr ""
+
+#. module: mondeo_accounting
+#. odoo-python
+#: code:addons/mondeo_accounting/wizard/asset_modify.py:0
+#, python-format
+msgid "You can't re-evaluate the asset before the lock date."
+msgstr ""
+
+#. module: mondeo_accounting
+#. odoo-python
+#: code:addons/mondeo_accounting/wizard/asset_modify.py:0
+#, python-format
+msgid "You cannot resume at a date equal to or before the pause date"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model,name:mondeo_accounting.model_digiduu_assets_report_wizard
+msgid "digiduu.assets.report.wizard"
+msgstr ""
+
+#. module: mondeo_accounting
+#: model:ir.model,name:mondeo_accounting.model_report_digiduu_assets_report
+msgid "report.digiduu_assets_report"
+msgstr ""

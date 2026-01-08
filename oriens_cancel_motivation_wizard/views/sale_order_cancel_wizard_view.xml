@@ -1,0 +1,39 @@
+<odoo>
+    <!-- Vista per il wizard -->
+    <record id="view_sale_order_cancel_wizard" model="ir.ui.view">
+        <field name="name">sale.order.cancel.wizard.form</field>
+        <field name="model">sale.order.cancel.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Annulla Ordine">
+                <group>
+                    <field name="x_studio_motivazione"/>
+                </group>
+                <footer>
+                    <button string="OK" type="object" name="action_confirm" class="btn-primary"/>
+                    <button string="Annulla" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Azione finestra per aprire il wizard -->
+    <record id="action_sale_order_cancel_wizard" model="ir.actions.act_window">
+        <field name="name">Annulla Ordine</field>
+        <field name="res_model">sale.order.cancel.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'active_id': active_id}</field>
+    </record>
+
+    <!-- Pulsante nella vista sale.order per aprire il wizard -->
+    <record id="view_sale_order_form_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_cancel']" position="after">
+                <button name="action_sale_order_cancel_wizard" type="action" string="Annulla Ordine - Wizard" class="btn-primary"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

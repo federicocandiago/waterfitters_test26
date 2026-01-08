@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <record id="view_partners_form" model="ir.ui.view">
+      <field name="name">view.res.partner.form.waterfitters</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field eval="100" name="priority"/>
+      <field name="arch" type="xml">
+         <xpath expr="//notebook" position="inside">
+            <page string="Iubenda Data" name="res_partner_iubenda_sync_page">
+               <group name="res_partner_iubenda_sync_group">
+                  <group name="res_partner_iubenda_sync_group_left" string="Mondeo Website">
+                     <field name="mondeo_web_privacy" readonly="1"/>
+                     <field name="mondeo_web_consent" readonly="1"/>
+                     <field name="mondeo_web_form_en" readonly="1"/>
+                     <field name="mondeo_web_form_it" readonly="1"/>
+                     <field name="mondeo_web_form_de" readonly="1"/>
+                  </group>
+                  <group name="res_partner_iubenda_sync_group_right" string="Waterfitters Portal">
+                     <field name="wf_offers_and_promotions" readonly="1"/>
+                     <field name="wf_data_privacy" readonly="1"/>
+                     <field name="wf_contract_clauses" readonly="1"/>
+                     <field name="wf_general_conditions" readonly="1"/>
+                  </group>
+               </group>
+            </page>
+         </xpath>
+      </field>
+   </record>
+</odoo>

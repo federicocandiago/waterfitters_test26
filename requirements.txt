@@ -1,0 +1,6 @@
+oauthlib==3.2.2
+asyncua==1.0.4
+pexpect==4.8.0
+
+python-barcode
+segno

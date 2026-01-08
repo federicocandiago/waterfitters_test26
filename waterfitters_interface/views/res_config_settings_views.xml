@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.base.setup.waterfitters</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='contacts_settings']" position="after">
+                <div id="waterfitters_interface">
+                    <h2>Waterfitters Interface</h2>
+                    <div class="row mt16 o_settings_container" name="waterfitters_setting_container">
+                        <div class="col-xs-12 col-md-12 o_setting_box" id="waterfitters_setting">
+                        <div class="w-100">
+                            <span class="o_form_label fw-bold">
+                                Connection Settings to the Waterfitters API Interface
+                            </span>
+
+                        </div>
+                        <div class="mt8">
+                            <group>
+                                <field name="waterfitters_client_id" string="Client ID"/>
+                                <field name="waterfitters_client_secret" string="Client Secret" password="True"/>
+                                <field name="waterfitters_endpoints_url" string="Endpoints Root" placeholder="https://www.example.com"/>
+                                <field name="waterfitters_customers_batch_limit" string="Batch Limit for Customers Sync"/>
+                            </group>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

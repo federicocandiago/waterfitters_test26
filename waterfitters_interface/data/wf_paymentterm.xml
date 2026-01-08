@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="wf_paymentterm_RB02" model="wf.paymentterm">
+            <field name="name">RI.BA. 60 GG DF.FM.</field>
+            <field name="code">RB02</field>
+            <field name="waterfitters_id">1</field>
+        </record>
+
+        <record id="wf_paymentterm_RB03" model="wf.paymentterm">
+            <field name="name">RI.BA. 90 GG DF.FM.</field>
+            <field name="code">RB03</field>
+            <field name="waterfitters_id">2</field>
+        </record>
+
+        <record id="wf_paymentterm_RB24" model="wf.paymentterm">
+            <field name="name">RI.BA. 60 GG FM. AL 05 MESE</field>
+            <field name="code">RB24</field>
+            <field name="waterfitters_id">3</field>
+        </record>
+
+        <record id="wf_paymentterm_RB01" model="wf.paymentterm">
+            <field name="name">RI.BA. 30 GG DF.FM.</field>
+            <field name="code">RB01</field>
+            <field name="waterfitters_id">4</field>
+        </record>
+
+        <record id="wf_paymentterm_BB03" model="wf.paymentterm">
+            <field name="name">BONIFICO 60 GG DF. FM.</field>
+            <field name="code">BB03</field>
+            <field name="waterfitters_id">5</field>
+        </record>
+
+        <record id="wf_paymentterm_CO06" model="wf.paymentterm">
+            <field name="name">ANTICIPATO</field>
+            <field name="code">CO06</field>
+            <field name="waterfitters_id">6</field>
+        </record>
+
+        <record id="wf_paymentterm_BB51" model="wf.paymentterm">
+            <field name="name">BONIFICO 150 GG DF. FM.</field>
+            <field name="code">BB51</field>
+            <field name="waterfitters_id">7</field>
+        </record>
+
+        <record id="wf_paymentterm_RB16" model="wf.paymentterm">
+            <field name="name">RI.BA. 90 GG FM. AL 10 MESE</field>
+            <field name="code">RB16</field>
+            <field name="waterfitters_id">8</field>
+        </record>
+
+        <record id="wf_paymentterm_RB15" model="wf.paymentterm">
+            <field name="name">RI.BA. 60 GG DF FM. AL 10 MESE</field>
+            <field name="code">RB15</field>
+            <field name="waterfitters_id">9</field>
+        </record>
+
+        <record id="wf_paymentterm_RB07" model="wf.paymentterm">
+            <field name="name">RI.BA. 60/90 GG DF.FM.</field>
+            <field name="code">RB07</field>
+            <field name="waterfitters_id">10</field>
+        </record>
+
+        <record id="wf_paymentterm_BB01" model="wf.paymentterm">
+            <field name="name">BONIFICO 60 GG DF FM AL + 10 GG</field>
+            <field name="code">BB01</field>
+            <field name="waterfitters_id">11</field>
+        </record>
+
+        <record id="wf_paymentterm_CO03" model="wf.paymentterm">
+            <field name="name">CONTRASSEGNO</field>
+            <field name="code">CO03</field>
+            <field name="waterfitters_id">12</field>
+        </record>
+
+        <record id="wf_paymentterm_RB26" model="wf.paymentterm">
+            <field name="name">RI.BA. 30 GG DFFM 4%</field>
+            <field name="code">RB26</field>
+            <field name="waterfitters_id">13</field>
+        </record>
+
+        <record id="wf_paymentterm_BB40" model="wf.paymentterm">
+            <field name="name">BONIFICO 90 GG DF.</field>
+            <field name="code">BB40</field>
+            <field name="waterfitters_id">14</field>
+        </record>
+
+        <record id="wf_paymentterm_BB02" model="wf.paymentterm">
+            <field name="name">BONIFICO VISTA FT.</field>
+            <field name="code">BB02</field>
+            <field name="waterfitters_id">15</field>
+        </record>
+
+        <record id="wf_paymentterm_BB07" model="wf.paymentterm">
+            <field name="name">BONIFICO 90 GG DF. FM.</field>
+            <field name="code">BB07</field>
+            <field name="waterfitters_id">16</field>
+        </record>
+
+        <record id="wf_paymentterm_RB25" model="wf.paymentterm">
+            <field name="name">RI.BA. 90 GG FM. AL 5 MESE</field>
+            <field name="code">RB25</field>
+            <field name="waterfitters_id">17</field>
+        </record>
+
+        <record id="wf_paymentterm_RB21" model="wf.paymentterm">
+            <field name="name">RI.BA. 30 GG FM AL 10 MESE SUCCESSIVO</field>
+            <field name="code">RB21</field>
+            <field name="waterfitters_id">18</field>
+        </record>
+
+        <record id="wf_paymentterm_RB08" model="wf.paymentterm">
+            <field name="name">RI.BA. 90/120 GG DF.FM.</field>
+            <field name="code">RB08</field>
+            <field name="waterfitters_id">19</field>
+        </record>
+
+        <record id="wf_paymentterm_BR62" model="wf.paymentterm">
+            <field name="name">50% BON.ANTIC.-50% RIBA 30 GG DF FM</field>
+            <field name="code">BR62</field>
+            <field name="waterfitters_id">20</field>
+        </record>
+
+        <record id="wf_paymentterm_RB10" model="wf.paymentterm">
+            <field name="name">RI.BA. 60/90/120 GG DF.FM.</field>
+            <field name="code">RB10</field>
+            <field name="waterfitters_id">21</field>
+        </record>
+
+        <record id="wf_paymentterm_BB09" model="wf.paymentterm">
+            <field name="name">BONIFICO 120 GG DF. FM.</field>
+            <field name="code">BB09</field>
+            <field name="waterfitters_id">22</field>
+        </record>
+
+        <record id="wf_paymentterm_RB04" model="wf.paymentterm">
+            <field name="name">RI.BA. 120 GG DF.FM.</field>
+            <field name="code">RB04</field>
+            <field name="waterfitters_id">23</field>
+        </record>
+
+        <record id="wf_paymentterm_BB22" model="wf.paymentterm">
+            <field name="name">BONIFICO 90 GG AL 10 MESE</field>
+            <field name="code">BB22</field>
+            <field name="waterfitters_id">24</field>
+        </record>
+
+        <record id="wf_paymentterm_BB06" model="wf.paymentterm">
+            <field name="name">BONIFICO 30 GG DF. FM.</field>
+            <field name="code">BB06</field>
+            <field name="waterfitters_id">25</field>
+        </record>
+
+        <record id="wf_paymentterm_RB" model="wf.paymentterm">
+            <field name="name">RI.BA. 90 GG FM. AL 15 MESE</field>
+            <field name="code">RB</field>
+            <field name="waterfitters_id">26</field>
+        </record>
+
+        <record id="wf_paymentterm_C011" model="wf.paymentterm">
+            <field name="name">ANTICIPATO SCONTO 2%</field>
+            <field name="code">C011</field>
+            <field name="waterfitters_id">27</field>
+        </record>
+
+        <record id="wf_paymentterm_BR60" model="wf.paymentterm">
+            <field name="name">50% BON.ANTIC. - 50% RIBA 60 GG DF FM</field>
+            <field name="code">BR60</field>
+            <field name="waterfitters_id">28</field>
+        </record>
+
+        <record id="wf_paymentterm_BB43" model="wf.paymentterm">
+            <field name="name">BONIFICO 30 GG DF.</field>
+            <field name="code">BB43</field>
+            <field name="waterfitters_id">29</field>
+        </record>
+
+        <record id="wf_paymentterm_BB33" model="wf.paymentterm">
+            <field name="name">BONIFICO VISTA FT. SC.2%</field>
+            <field name="code">BB33</field>
+            <field name="waterfitters_id">30</field>
+        </record>
+
+        <record id="wf_paymentterm_BB62" model="wf.paymentterm">
+            <field name="name">BONIFICO A MERCE PRONTA SC.2%</field>
+            <field name="code">BB62</field>
+            <field name="waterfitters_id">31</field>
+        </record>
+
+        <record id="wf_paymentterm_BB41" model="wf.paymentterm">
+            <field name="name">BONIFICO 60 GG DF.</field>
+            <field name="code">BB41</field>
+            <field name="waterfitters_id">32</field>
+        </record>
+
+        <record id="wf_paymentterm_CO11" model="wf.paymentterm">
+            <field name="name">ANTICIPATO SC.5%</field>
+            <field name="code">CO11</field>
+            <field name="waterfitters_id">33</field>
+        </record>
+
+        <record id="wf_paymentterm_CO09" model="wf.paymentterm">
+            <field name="name">ANTICIPATO SC.3%</field>
+            <field name="code">CO09</field>
+            <field name="waterfitters_id">34</field>
+        </record>
+
+        <record id="wf_paymentterm_RB06" model="wf.paymentterm">
+            <field name="name">RI.BA. 30/60 GG DF.FM.</field>
+            <field name="code">RB06</field>
+            <field name="waterfitters_id">35</field>
+        </record>
+
+        <record id="wf_paymentterm_BB12" model="wf.paymentterm">
+            <field name="name">BANK TRANSFER - 90 DAYS</field>
+            <field name="code">BB12</field>
+            <field name="waterfitters_id">36</field>
+        </record>
+
+        <record id="wf_paymentterm_ASSE" model="wf.paymentterm">
+            <field name="name">ASSEGNO</field>
+            <field name="code">ASSE</field>
+            <field name="waterfitters_id">37</field>
+        </record>
+
+        <record id="wf_paymentterm_BB11" model="wf.paymentterm">
+            <field name="name">BANK TRANSFER - 60 DAYS</field>
+            <field name="code">BB11</field>
+            <field name="waterfitters_id">38</field>
+        </record>
+
+        <record id="wf_paymentterm_BB10" model="wf.paymentterm">
+            <field name="name">BANK TRANSFER - 30 DAYS</field>
+            <field name="code">BB10</field>
+            <field name="waterfitters_id">39</field>
+        </record>
+
+        <record id="wf_paymentterm_BB65" model="wf.paymentterm">
+            <field name="name">BANK TRANSFER WHEN GOODS READY -3% DISCOUNT</field>
+            <field name="code">BB65</field>
+            <field name="waterfitters_id">40</field>
+        </record>
+
+        <record id="wf_paymentterm_BB35" model="wf.paymentterm">
+            <field name="name">BANK TRANSFER - 30 DAYS END OF MONTH</field>
+            <field name="code">BB35</field>
+            <field name="waterfitters_id">41</field>
+        </record>
+
+        <record id="wf_paymentterm_BB13" model="wf.paymentterm">
+            <field name="name">ADVANCED - BANK TRANSFER 3% DISCOUNT</field>
+            <field name="code">BB13</field>
+            <field name="waterfitters_id">42</field>
+        </record>
+
+        <record id="wf_paymentterm_BB14" model="wf.paymentterm">
+            <field name="name">ADVANCED - BANK TRANSFER</field>
+            <field name="code">BB14</field>
+            <field name="waterfitters_id">43</field>
+        </record>
+
+        <record id="wf_paymentterm_BB16" model="wf.paymentterm">
+            <field name="name">AT RECEIVING MATERIAL LESS 2%</field>
+            <field name="code">BB16</field>
+            <field name="waterfitters_id">44</field>
+        </record>
+
+        <record id="wf_paymentterm_BB37" model="wf.paymentterm">
+            <field name="name">BANK TRANSFER - 60 DAYS END OF MONTH</field>
+            <field name="code">BB37</field>
+            <field name="waterfitters_id">45</field>
+        </record>
+
+        <record id="wf_paymentterm_BB19" model="wf.paymentterm">
+            <field name="name">ADVANCED - BANK TRANSFER 2% DISCOUNT</field>
+            <field name="code">BB19</field>
+            <field name="waterfitters_id">46</field>
+        </record>
+
+        <record id="wf_paymentterm_BB32" model="wf.paymentterm">
+            <field name="name">BANK TRANSFER WHEN GOODS READY -2% DISCOUNT</field>
+            <field name="code">BB32</field>
+            <field name="waterfitters_id">47</field>
+        </record>
+
+        <record id="wf_paymentterm_BB25" model="wf.paymentterm">
+            <field name="name">BANK TRANSFER - 30 DAYS 2% DISCOUNT</field>
+            <field name="code">BB25</field>
+            <field name="waterfitters_id">48</field>
+        </record>
+
+        <record id="wf_paymentterm_BB24" model="wf.paymentterm">
+            <field name="name">ADVANCED PAYMENT</field>
+            <field name="code">BB24</field>
+            <field name="waterfitters_id">49</field>
+        </record>
+
+        <record id="wf_paymentterm_BB60" model="wf.paymentterm">
+            <field name="name">BANK TRANSFER - 75 DAYS EOM</field>
+            <field name="code">BB60</field>
+            <field name="waterfitters_id">50</field>
+        </record>
+
+        <record id="wf_paymentterm_BB28" model="wf.paymentterm">
+            <field name="name">BANK TRANSFER - 60 DAYS, 10th NEXT MONTH</field>
+            <field name="code">BB28</field>
+            <field name="waterfitters_id">51</field>
+        </record>
+
+        <record id="wf_paymentterm_BB26" model="wf.paymentterm">
+            <field name="name">BANK TRANSFER - 120 DAYS</field>
+            <field name="code">BB26</field>
+            <field name="waterfitters_id">52</field>
+        </record>
+
+        <record id="wf_paymentterm_BB15" model="wf.paymentterm">
+            <field name="name">BANK TRANSFER - 30 DAYS 3% DISCOUNT</field>
+            <field name="code">BB15</field>
+            <field name="waterfitters_id">53</field>
+        </record>
+
+        <record id="wf_paymentterm_BB18" model="wf.paymentterm">
+            <field name="name">BANK TRANSFER AT RECEIVING MATERIAL</field>
+            <field name="code">BB18</field>
+            <field name="waterfitters_id">54</field>
+        </record>
+
+        <record id="wf_paymentterm_CD01" model="wf.paymentterm">
+            <field name="name">CASH AGAINST DOCUMENTS (CAD)</field>
+            <field name="code">CD01</field>
+            <field name="waterfitters_id">55</field>
+        </record>
+
+        <record id="wf_paymentterm_BB36" model="wf.paymentterm">
+            <field name="name">BANK TRANSFER - 45 DAYS END OF MONTH</field>
+            <field name="code">BB36</field>
+            <field name="waterfitters_id">56</field>
+        </record>
+
+        <record id="wf_paymentterm_FOC" model="wf.paymentterm">
+            <field name="name">FREE OF CHARGE</field>
+            <field name="code">FOC</field>
+            <field name="waterfitters_id">57</field>
+        </record>
+
+        <record id="wf_paymentterm_BB52" model="wf.paymentterm">
+            <field name="name">BONIFICO MERCE PRONTA</field>
+            <field name="code">BB52</field>
+            <field name="waterfitters_id">58</field>
+        </record>
+
+        <record id="wf_paymentterm_RB35" model="wf.paymentterm">
+            <field name="name">RI.BA. 30 GG FM. AL 05 MESE</field>
+            <field name="code">RB35</field>
+            <field name="waterfitters_id">59</field>
+        </record>
+
+        <record id="wf_paymentterm_BB54" model="wf.paymentterm">
+            <field name="name">50% WHEN GOOD READY - 50% 60 DAYS</field>
+            <field name="code">BB54</field>
+            <field name="waterfitters_id">60</field>
+        </record>
+
+        <record id="wf_paymentterm_BBRD" model="wf.paymentterm">
+            <field name="name">50% BON.ANTICIP.SC.2%-50% BON.60 GG DF.FM.</field>
+            <field name="code">BBRD</field>
+            <field name="waterfitters_id">61</field>
+        </record>
+
+        <record id="wf_paymentterm_CO01" model="wf.paymentterm">
+            <field name="name">CONTANTI</field>
+            <field name="code">CO01</field>
+            <field name="waterfitters_id">62</field>
+        </record>
+
+        <record id="wf_paymentterm_BB59" model="wf.paymentterm">
+            <field name="name">BONIFICO 30 GG DF FM + 10 GG</field>
+            <field name="code">BB59</field>
+            <field name="waterfitters_id">63</field>
+        </record>
+
+        <record id="wf_paymentterm_RB34" model="wf.paymentterm">
+            <field name="name">RI.BA. 60 GG DF.FM. SC.2%</field>
+            <field name="code">RB34</field>
+            <field name="waterfitters_id">64</field>
+        </record>
+
+        <record id="wf_paymentterm_BB21" model="wf.paymentterm">
+            <field name="name">50% ADVANCE BANK TRANSFER/BALANCE WHEN GOODS READY</field>
+            <field name="code">BB21</field>
+            <field name="waterfitters_id">65</field>
+        </record>
+
+        <record id="wf_paymentterm_LC04" model="wf.paymentterm">
+            <field name="name">IRREVOCABLE CREDIT LETTER 90 DAYS FROM B/L DATE</field>
+            <field name="code">LC04</field>
+            <field name="waterfitters_id">66</field>
+        </record>
+
+        <record id="wf_paymentterm_RB36" model="wf.paymentterm">
+            <field name="name">RI.BA 30/60/90 GG DF FM AL 10</field>
+            <field name="code">RB36</field>
+            <field name="waterfitters_id">67</field>
+        </record>
+
+        <record id="wf_paymentterm_RB41" model="wf.paymentterm">
+            <field name="name">RI.BA. 30/60/90 GG FM. MESE</field>
+            <field name="code">RB41</field>
+            <field name="waterfitters_id">68</field>
+        </record>
+
+        <record id="wf_paymentterm_BB30" model="wf.paymentterm">
+            <field name="name">BANK TRANSFER WHEN GOODS READY</field>
+            <field name="code">BB30</field>
+            <field name="waterfitters_id">69</field>
+        </record>
+
+        <record id="wf_paymentterm_RB42" model="wf.paymentterm">
+            <field name="name">RI.BA. 60/90 GG.DF.FM AL 10 DEL MESE SUCC.</field>
+            <field name="code">RB42</field>
+            <field name="waterfitters_id">70</field>
+        </record>
+
+        <record id="wf_paymentterm_C012" model="wf.paymentterm">
+            <field name="name">ANTICIPATO SCONTO 5%</field>
+            <field name="code">C012</field>
+            <field name="waterfitters_id">71</field>
+        </record>
+
+        <record id="wf_paymentterm_C010" model="wf.paymentterm">
+            <field name="name">ANTICIPATO SCONTO 1%</field>
+            <field name="code">C010</field>
+            <field name="waterfitters_id">72</field>
+        </record>
+
+        <record id="wf_paymentterm_BB56" model="wf.paymentterm">
+            <field name="name">30% BON.ANTIC.-70% BON.60 GG.DF.FM.</field>
+            <field name="code">BB56</field>
+            <field name="waterfitters_id">73</field>
+        </record>
+
+        <record id="wf_paymentterm_BB63" model="wf.paymentterm">
+            <field name="name">T/T 100% AFTER B/L DATE</field>
+            <field name="code">BB63</field>
+            <field name="waterfitters_id">74</field>
+        </record>
+
+                <record id="wf_paymentterm_BB66" model="wf.paymentterm">
+            <field name="name">BANK TRANSFER 14 DAYS</field>
+            <field name="code">BB66</field>
+            <field name="waterfitters_id">75</field>
+        </record>
+
+        <record id="wf_paymentterm_PAID" model="wf.paymentterm">
+            <field name="name">ALREADY PAID</field>
+            <field name="code">PAID</field>
+            <field name="waterfitters_id">76</field>
+        </record>
+
+        <record id="wf_paymentterm_BB68" model="wf.paymentterm">
+            <field name="name">30% BON.ANTIC.-70% BON.MERCE PRONTA</field>
+            <field name="code">BB68</field>
+            <field name="waterfitters_id">77</field>
+        </record>
+
+        <record id="wf_paymentterm_BB69" model="wf.paymentterm">
+            <field name="name">30% BON.ANTIC.-70% BON.DATA FATTURA</field>
+            <field name="code">BB69</field>
+            <field name="waterfitters_id">78</field>
+        </record>
+
+        <record id="wf_paymentterm_CACR" model="wf.paymentterm">
+            <field name="name">CARTA CREDITO</field>
+            <field name="code">CACR</field>
+            <field name="waterfitters_id">79</field>
+        </record>
+
+    </data>
+</odoo>

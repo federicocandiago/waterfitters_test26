@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="wf_shippingmethod_action" model="ir.actions.act_window">
+        <field name="name">WF Shipping Methods</field>
+        <field name="res_model">wf.shippingmethod</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <record id="view_wf_shippingmethod_tree" model="ir.ui.view">
+        <field name="name">wf.shippingmethod.tree</field>
+        <field name="model">wf.shippingmethod</field>
+        <field name="arch" type="xml">
+            <tree string="WF Shipping Methods" multi_edit="1">
+                <field name="name" />
+                <field name="method" />
+                <field name="incoterm" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_wf_shippingmethod_search" model="ir.ui.view">
+        <field name="name">wf.shippingmethod.search</field>
+        <field name="model">wf.shippingmethod</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="method" />
+                <field name="incoterm" />
+            </search>
+        </field>
+    </record>
+
+    <menuitem id="menu_wf_shippingmethod"
+              name="WF Shipping Methods"
+              parent="contacts.menu_contacts"
+              sequence="7"
+              action="wf_shippingmethod_action" />
+
+</odoo>

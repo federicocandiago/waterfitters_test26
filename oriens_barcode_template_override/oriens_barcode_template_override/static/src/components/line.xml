@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<templates>
+    <t t-name="custom_stock_barcode.LineQuantity" t-extend="stock_barcode.LineQuantity">
+        <xpath expr="//div[@name='quantity']" position="replace">
+            <div name="quantity">
+                <span>TEST ORIENS</span>
+                <i class="fa fa-fw fa-cube" t-attf-class="{{nextExpected === 'quantity' ? 'o_next_expected' : ''}}"/>
+                <span t-attf-class="o_barcode_scanner_qty font-monospace badge #{' '}">
+                    <span class="qty-done d-inline-block text-start"
+                            t-attf-class="
+                            {{nextExpected === 'quantity' &amp;&amp; qtyDone ? 'o_flash' : ''}}
+                            {{isSelected &amp;&amp; qtyDemand &amp;&amp; qtyDone &amp;&amp; qtyDone &lt; qtyDemand ? 'fw-bolder' : ''}}"
+                            t-esc="env.model.IsNotSet(line) ? '?' : qtyDone"/>
+                    <span t-if="qtyDemand" t-esc="'/ ' + qtyDemand"/>
+                </span>
+                <span t-if="props.displayUOM" t-esc="line.product_uom_id.name"/>
+            </div>
+        </xpath>
+    </t>
+</templates>

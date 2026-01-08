@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_account_asset_form" model="ir.ui.view">
+        <field name="name">account.asset.form.inherit</field>
+        <field name="model">account.asset</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_asset_modify']" position="attributes">
+                <attribute name="context">{'skip_halving': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='prorata_date']" position="after">
+                <field name="delete_residual_calculation"/>
+                <field name="normalize_dates_to_jan_first"/>
+            </xpath>
+            <xpath expr="//field[@name='model_id']" position="after">
+                <field name="is_account_asset_child" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                <field name="parent_account_asset_id" attrs="{'invisible': [('is_account_asset_child', '=', False)]}"/>
+            </xpath>
+            <xpath expr="//div[@class='oe_title']" position="after">
+                <div class="oe_title" attrs="{'invisible': [('state', '=', 'model')]}">
+                    <label for="sequence_code" name="model_name_label" string="Sequence Code"/>
+                    <h1>
+                        <field name="sequence_code" placeholder="ABC:A" readonly="1"/>
+                    </h1>
+                </div>
+            </xpath>
+            <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/field[@name='prorata_computation_type']" position="after">
+                <field name="assets_type"/>
+                <field name="first_year_percentage"/>
+                <field name="standard_coefficient" string="Standard %"/>
+                <field name="first_year_halving"/>
+            </xpath>
+            <xpath expr="//form[1]/sheet[1]/group[1]" position="after">
+                <group attrs="{'invisible': [('state', '!=', 'model')]}">
+                    <group string="Gain/Loss Accounts">
+                        <field name="gain_account_id"/>
+                        <field name="loss_account_id"/>
+                    </group>
+                    <group string="Sequence Code" attrs="{'invisible': [('state', '!=', 'model')]}">
+                        <field name="prefix_code"/>
+                        <field name="sequence_number" groups="base.group_no_one" readonly="1"/>
+                    </group>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='original_value']" position="before">
+                <field name="code" readonly="1"/>
+            </xpath>
+            <xpath expr="//field[@name='book_value']" position="after">
+                <field name="accounting_value" readonly="1"/>
+            </xpath>
+            <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='depreciation_board']/field[@name='depreciation_move_ids']/tree[1]/field[@name='date']"
+                   position="after">
+                <field name="id" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

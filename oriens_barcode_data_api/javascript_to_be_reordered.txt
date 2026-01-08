@@ -1,0 +1,791 @@
+<data>
+    <xpath expr="//body" position="inside">
+      <script>
+        function setNodeColour(node, colour) {
+          const nodeText = node.textContent.trim();
+          console.log("'" + nodeText + "'");
+        	if (nodeText == '' || nodeText.includes('-') || nodeText.trim() == '0,00' || nodeText.trim() == '0.00') node.style.backgroundColor = '';
+        	else node.style.backgroundColor = colour;
+        }
+        
+        function checkForCoral(node) {
+        	setTimeout(function () {
+        		document.querySelectorAll('td[name="x_studio_proposta_di_riordino"], td[name="x_studio_qty_in_acquisto"]').forEach(function (node) {
+        			console.log('Observed node: ' + node.textContent);
+        			setNodeColour(node, 'coral')
+        		})
+        	}, 200);
+        }
+        
+        function checkForGreen(node) {
+        	setTimeout(function () {
+        		document.querySelectorAll('td[name="x_studio_quantit_in_produzione"], td[name="x_studio_qty_in_acquisto"]').forEach(function (node) {
+        			console.log('Observed node: ' + node.textContent);
+        			setNodeColour(node, 'lightgreen')
+        		})
+        	}, 200);
+        }
+        
+        function selectForColours() {
+        	$('[name="x_studio_proposta_di_riordino"], [name="x_studio_consumo_medio_mensile"]').on('change', checkForCoral);
+        	checkForCoral();
+        	
+        	$('[name="x_studio_quantit_in_produzione"], [name="x_studio_qty_in_acquisto"]').on('change', checkForGreen);
+        	checkForGreen();
+        }
+        
+        if (typeof pianificazioneObserverActivated === 'undefined') {
+          pianificazioneObserverActivated = true;
+          var mondeo_pianificazione_observer = new MutationObserver(function(mutations) {
+  			    callForColours();
+          });
+          const mondeo_previous_url_config = {subtree: true, childList: true};
+          mondeo_pianificazione_observer.observe(document, mondeo_previous_url_config);
+        }
+        
+        function callForColours() {
+        	if (window.location.href.includes('x_pianificazione') &amp;&amp; window.location.href.includes('view_type=list')) {
+        		setTimeout(selectForColours, 1000);
+        	}
+        }
+        
+        callForColours();
+      </script>
+      
+      <style>
+        div.o_barcode_line_details p, div.o_barcode_line_details span {
+          font-size:1.4rem!important;
+        }
+        div.o_barcode_line_title &gt; span {
+          font-size:1.5rem!important;
+          line-height:2.5rem;
+        }
+      </style>
+      
+      <script>
+        function createCacheId(){return String(parseInt(Math.random() * 1000000000));}
+        function stripHtml(html){return new DOMParser().parseFromString(html, 'text/html').body.textContent || ''};
+        function sanitiseString(name) {return name.toString().replace(/[\/\\:*?"&lt;&gt;|]/g, '_')};
+
+        /* PAGINA BARCODE - VERIFICA QUANTITA' DINAMICA E CHIAMATA API PER CAMPI AGGIUNTIVI */
+
+        oriens_barcode_form_packing_number = false;
+
+        function oriensGetActiveId() {
+          urlParams = new URLSearchParams(window.location.href);
+          console.log('HREF: ' + window.location.href);
+          return urlParams.get("active_id");            
+        }
+        
+        function oriensSetlocation(product_name, oriens_location) {
+            console.log('oriensSetlocation' + product_name + oriens_location);
+            /* Make fetch call */
+            if (product_name &amp;&amp; oriens_location) fetch('/barcode-api/set_product_location?location=' + oriens_location + '&amp;name=' + product_name + '&amp;cacheId=' + createCacheId())
+                .then(response =&gt; {
+                    if (response.ok) {return response.json()} else { console.log('Network response was not correct.'); }
+                }).then(data =&gt; {
+                    if (typeof data == 'object' &amp;&amp; data.hasOwnProperty('status')) {
+                      if (data.status == '1') {
+                        alert('Ubicazione cambiata correttamente in "' + oriens_location + '".');
+                        window.location.reload();
+                      } else alert('Non è stato possibile modificare la location. Per favore, verifica che i dati inseriti siano corretti. Se necessario, prova ad aggiornare la pagina.');
+                    }
+                }).catch(error =&gt; {console.error('Custom Oriens API call error:', error);});                    
+        }
+        
+        function genetateReportUrl(doc_id, pack_name) {
+            var report_name = 'studio_customization.studio_report_docume_212b8557-5c5e-4798-bcc9-704f7628b363';
+            var url = `/report/pdf/${report_name}/${doc_id}`;
+            var token = new Date().getTime();
+            var csrfToken = odoo &amp;&amp; odoo.csrf_token;
+        
+            if (token &amp;&amp; csrfToken) {
+                fetch('/report/download', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    body: new URLSearchParams({data: JSON.stringify([url, 'qweb-pdf']), token: token, csrf_token: csrfToken })
+                }).then(response =&gt; {
+                    if (!response.ok) alert('Impossibile stampare il documento. Verificare che il record sia accessibile e non sia stato eliminato. Err. 1');
+                    return response.blob();
+                }).then(blob =&gt; {
+                    const fileURL = URL.createObjectURL(blob);
+                    window.open(fileURL, '_blank');
+                    
+                    const a = document.createElement('a');
+                    a.href = fileURL;
+                    const safe_pack_name = sanitiseString(pack_name.toString())
+                    a.download = safe_pack_name + '.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(fileURL);
+                }).catch(error =&gt; {
+                    alert('Impossibile stampare il documento. Verificare che il record sia accessibile e non sia stato eliminato. Err. 2');
+                    console.log('Impossibile stampare il documento: ', error);
+                });
+            }
+        }
+
+
+        function regeneratePackageData() {
+
+          /* Scale buttons */
+          const span_packages = document.querySelectorAll('span.result-package').length;
+          /* const scale_buttons = document.querySelectorAll('button.oriens-barcode-weight-btn').length; */
+
+          /* if (span_packages &amp;&amp; !scale_buttons) { */
+          if (span_packages) {
+            elaboratePackedGoods();
+            return true;
+          } 
+
+        };
+
+        function oriensTimesheet(start) {
+            barcode_start = document.querySelector('.oriens_barcode_start');
+            barcode_stop = document.querySelector('.oriens_barcode_stop');
+            
+            if (barcode_start &amp;&amp; barcode_stop) {
+              if (start) {
+                  console.log('Timer da picking: start');
+                  cronometer_state = '1';
+                  barcode_start.style.display = 'none';
+                  barcode_stop.style.display = 'block';
+              } else {
+                  cronometer_state = '0';
+                  console.log('Timer da picking: stop');
+                  barcode_start.style.display = 'block';
+                  barcode_stop.style.display = 'none';
+              }
+            }
+            
+            activeId = oriensGetActiveId();
+            if (!activeId) console.log('Attenzione: non è stato possibile recuperare lo stock.picking.batch con valore corrispondente uguale a: ' + activeId);
+            else {
+                cronometer_state = !start ? '0' : '1';
+                
+                const post_form = new FormData();
+                post_form.append('record_id', activeId);
+                post_form.append('state', cronometer_state);
+                post_form.append('csrf_token', odoo.csrf_token); 
+                
+              fetch('/barcode-api/set_cronometer', {method: 'POST', body: post_form})
+              .then(response =&gt; {
+                if (response.ok) {return response.json()} else {console.log('Network response was not correct.')}
+              })
+            }
+        }
+
+        /* Package observer */
+        packed_goods_elaborated = false;
+        if (typeof oriens_pack_observer_loaded === 'undefined') {
+          oriens_pack_observer_loaded = true;
+          
+          const packObserver = new MutationObserver((mutationsList) =&gt; {
+              for (const mutation of mutationsList) {
+                  for (const node of mutation.addedNodes) {
+                      if (node.nodeType === Node.ELEMENT_NODE) {
+                          if (!packed_goods_elaborated &amp;&amp;
+                              ((node.querySelector &amp;&amp; node.querySelector('.result-package')) ||
+                              (node.classList &amp;&amp; node.classList.contains('result-package')))
+                          ) {
+                            elaboratePackedGoods();
+                            packed_goods_elaborated = true;
+                          }
+                      }
+                  }
+              }
+          });
+
+          packObserver.observe(document.body, {
+              childList: true,
+              subtree: true
+          });
+        }
+
+        function oriensSetWeight(pack_name, elem, oriens_weight = '') {
+            oriens_weight = oriens_weight.toString().trim();
+            oriens_weight = oriens_weight.replace(',', '.');
+            var oriens_match = oriens_weight.match(/[-+]?\d*\.?\d+/);
+            if (oriens_match) oriens_weight = Number(parseFloat(oriens_match ? oriens_match[0] : 0.00).toFixed(2));
+     
+            if (pack_name &amp;&amp; oriens_weight) {
+            
+                const post_form = new FormData();
+                post_form.append('name', pack_name);
+                post_form.append('weight', oriens_weight);
+                post_form.append('csrf_token', odoo.csrf_token); 
+                
+                fetch('/barcode-api/set-pack-weight', {method: 'POST', body: post_form})
+                  .then(response =&gt; {
+                    if (response.ok) {return response.json()} else {console.log('Network response was not correct.')}
+                  }).then(data =&gt; {
+                    console.log(data);
+                    if (typeof data == 'object' &amp;&amp; data.hasOwnProperty('weight')) {
+                        if (elem &amp;&amp; typeof elem == 'object') {
+                          const barcode_line = elem.closest('.o_barcode_line');
+                          if (barcode_line) {
+                            const barcode_line_weight = barcode_line.querySelector('span.actual_weight');
+                            if (barcode_line_weight) barcode_line_weight.innerHTML = data.weight;
+                          }
+                        }
+                      } else alert('Non è stato possibile modificare la location. Per favore, verifica che i dati inseriti siano corretti. Se necessario, prova ad aggiornare la pagina.');
+                  })
+                  .catch(error =&gt; {console.error('Custom Oriens API call error:', error);});
+              }
+        }
+
+       function addProductDataDiv(element, productLabel) {
+            
+              const intervalId = setInterval(() =&gt; {
+                batch_id = oriensGetActiveId();
+                element.classList.add('oriens_processed_barcode_line');
+                
+                if (batch_id &amp;&amp; productLabel) {
+                  clearInterval(intervalId);
+                  
+                  fetch('/barcode-api/get-product-data?name=' + productLabel + '&amp;batch_id=' + batch_id + '&amp;cacheId=' + createCacheId())
+                  .then(response =&gt; {
+                    if (response.ok) {return response.json()} else {console.log('Network response was not correct.')}
+                  }).then(data =&gt; {                
+                    var productDataDiv = document.createElement('div');
+                    productDataDiv.className = 'oriens_barcode_product_data';
+                    
+                    var notesDataDiv = document.createElement('div');
+                    notesDataDiv.className = 'oriens_barcode_notes';
+
+                    var paragraph2 = document.createElement('p');
+                    paragraph2.textContent = data.ubicazione_secondaria;
+                    paragraph2.style.margin = '0px';
+                    paragraph2.style.marginLeft = '20px';
+                    productDataDiv.appendChild(paragraph2);
+                    
+                    if (data.note_picking &amp;&amp; data.note_picking.length) {
+                      var paragraph4 = document.createElement('p');
+                      paragraph4.textContent = 'NOTE: ' + data.note_picking;
+                      paragraph4.style.margin = '0px';
+                      paragraph4.style.marginLeft = '20px';
+                      notesDataDiv.appendChild(paragraph4);
+                    }
+                    
+                    var barcodeTitleDiv = element.querySelector('.o_barcode_line_title');
+                    var barcodeHasNotes = element.querySelector('.oriens_barcode_notes');
+                    
+                    if (!barcodeHasNotes &amp;&amp; barcodeTitleDiv &amp;&amp; barcodeTitleDiv.parentNode) barcodeTitleDiv.parentNode.insertBefore(productDataDiv, barcodeTitleDiv.nextSibling);
+                    if (!barcodeHasNotes &amp;&amp; barcodeTitleDiv &amp;&amp; barcodeTitleDiv.parentNode) barcodeTitleDiv.parentNode.append(notesDataDiv);
+                  })
+                  .catch(error =&gt; {console.error('Custom Oriens API call error:', error);
+                });
+              }
+            }, 50);
+          }
+        
+        function addProductDataToExisting() {
+            var barcodeLines = document.querySelectorAll('.o_barcode_line:not(.oriens_processed_barcode_line)');
+            barcodeLines.forEach(function(element) {
+                var productLabel = element.querySelector('.product-label')?.innerText;
+                addProductDataDiv(element, productLabel);
+            });
+        }
+
+        function insertLocationButtons() {
+            document.querySelectorAll('.o_barcode_line').forEach(oriens_buttons_parent_container =&gt; {
+              const oriens_buttons_line = oriens_buttons_parent_container.querySelector('.o_line_buttons');
+              if (oriens_buttons_line) {
+        
+                  /* Bottone della modifica dell'ubicazione  - "location Button" */
+                  var location_button = document.createElement('button');
+        
+                    /* Create the button if the barcode line has a picking span value */
+                    location_button.className = 'o_line_button btn btn-secondary oriens-barcode-location-btn';
+                    location_button.style.marginLeft = '1rem';
+                    var location_icon = document.createElement('i');
+                    location_icon.className = 'oi fa-2x oi-group';
+                    location_button.onclick = function () {
+        
+                        /* Get product name */
+                        product_label = oriens_buttons_parent_container.querySelector('.product-label') 
+                        product_name = product_label ? product_label.innerText : '';
+        
+                        const oriens_location = prompt("Indica la nuova ubicazione:");
+                        oriensSetlocation(product_name, oriens_location);
+
+                    };
+                    location_button.appendChild(location_icon);
+                    oriens_buttons_line.appendChild(location_button);
+              }
+            });
+        }
+
+        function elaboratePackedGoods() {
+            document.querySelectorAll('.o_barcode_line .result-package').forEach(pack_line =&gt; {
+              const pack_parent_element = pack_line.closest('.o_barcode_line');
+              const pack_name = pack_line.innerText;
+              if (pack_parent_element &amp;&amp; !pack_parent_element.classList.contains('oriens_processed_barcode_weight')) {
+                const pack_parent_button = pack_parent_element.querySelector('button');
+                if (pack_parent_button) {
+                  var weight_button = document.createElement('button');
+                    
+                    /* Get product name and quantity */
+                    product_label = pack_parent_element.querySelector('.product-label');
+                    product_name = product_label ? product_label.innerText : '';
+
+                    product_code = '';
+                    if (pack_parent_element) {
+                      const product_code_element = pack_parent_element.querySelector('.o_barcode_product_ref');
+                      if (product_code_element &amp;&amp; product_code_element.innerText) product_code = product_code_element.innerText;
+                    }
+                    
+                    span_qty_done = pack_parent_element.querySelector('span.qty-done');
+                    product_uom_qty = span_qty_done ? span_qty_done.innerText : '0';
+                    
+                    /* Make fetch call */
+                    if (pack_name) fetch('/barcode-api/get-computed-pack-weight?name=' + pack_name + '&amp;product_code=' + product_code + '&amp;product_name=' + product_name + '&amp;product_uom_qty=' + product_uom_qty + '&amp;cacheId=' + createCacheId())
+                      .then(response =&gt; {
+                        if (response.ok) {return response.json()} else {console.log('Network response was not correct.')}
+                      }).then(data =&gt; {
+                        if (typeof data == 'object' &amp;&amp; data.hasOwnProperty('computed_weight')) {
+                          var weight_paragraph = document.createElement('span');
+                          weight_paragraph.innerHTML = data.computed_weight;
+                          weight_paragraph.style.margin = '0px';
+                          weight_paragraph.style.marginLeft = '1rem';
+                          pack_line.appendChild(weight_paragraph);
+                          var parent = pack_line.parentNode;
+
+                          if (pack_line.nextSibling) parent.insertBefore(weight_paragraph, pack_line.nextSibling);
+                          else parent.appendChild(weight_paragraph);
+                          
+                          /* Bottone peso */
+                          weight_button.className = 'o_line_button o_balance btn btn-secondary oriens-barcode-weight-btn mb-2';
+                          weight_button.style.marginLeft = '1rem';
+                          var weight_icon = document.createElement('i');
+                          weight_icon.className = 'fa fa-2x fa-balance-scale';
+                          weight_button.onclick = function () {
+                              let expected_weight = 0;
+                              document.querySelectorAll('span.result-package').forEach(pk =&gt; {
+                                if (pk.innerHTML.trim() === pack_name.trim()) {
+                                  const val = pk.closest('div.o_barcode_line')
+                                    ?.querySelector('.barcode_calc_weight')
+                                    ?.innerHTML;
+                                  const num = parseFloat(val);
+                                  if (!isNaN(num)) expected_weight += num;
+                                }
+                              });
+                              const oriens_weight = prompt(`Indica il peso per il collo "${pack_name}"`, expected_weight.toPrecision(3));
+                              oriensSetWeight(pack_name, this, oriens_weight || '0');
+                          };
+                          weight_button.appendChild(weight_icon);
+                        
+                          pack_parent_button_container = pack_parent_element.querySelector('div.o_line_buttons')
+                          if (pack_parent_button_container) pack_parent_button_container.appendChild(weight_button);
+
+                          /* Bottone stampa report */
+                          var print_button = document.createElement('button');
+                          print_button.className = 'o_line_button btn btn-secondary oriens-barcode-print-btn mb-2';
+                          print_button.style.marginLeft = '0.5rem';
+                          var print_icon = document.createElement('i');
+                          print_icon.className = 'fa fa-2x fa-print';
+                          print_button.appendChild(print_icon);
+                          print_button.onclick = () =&gt; genetateReportUrl(oriensGetActiveId(), pack_name);
+                          if (pack_parent_button_container) pack_parent_button_container.appendChild(print_button);
+
+                          document.querySelectorAll('.o_line_button.o_edit').forEach(el =&gt; {
+                            if (!el.classList.contains('mb-2')) el.classList.add('mb-2');
+                          });
+                        }
+                      }).catch(error =&gt; {console.error('Custom Oriens API call error:', error);});
+                }
+              }
+              
+              if (pack_parent_element) pack_parent_element.classList.add('oriens_processed_barcode_weight');
+            });
+        }
+
+        function oriensHandleNode(node) {
+            if (node.classList &amp;&amp; node.classList.contains('o_barcode_lines_header')) {
+                setTimeout(() =&gt; {
+                    if (typeof is_cronometer_running == 'undefined') is_cronometer_running = false;
+                    document.querySelectorAll('button.o_exit').forEach(exitButton =&gt; {
+                        if (!exitButton.classList.contains('oriens_barcode_stop_timer')) {
+                            exitButton.addEventListener('click', function() {
+                              if (document.querySelectorAll('div.o_barcode_line').length) oriensTimesheet(false);
+                            });
+                            exitButton.classList.add('oriens_barcode_stop_timer');
+                        }
+                    });
+
+                    const linesHeader = document.querySelector('.o_barcode_lines_header');
+                    if (linesHeader) linesHeader.innerHTML +=  `<div class="o_barcode_timesheet_header row alert m-0 px-1 justify-content-between">
+                        <div name="barcode_time_tracker" class="d-flex align-items-center justify-content-center w-100">
+                            <div class="oriens_barcode_start text-success" style="display:block; cursor:pointer;" onclick="oriensTimesheet(true)">
+                                <span class="btn btn-large btn-success o_scan_message o_scan_product text-uppercase" style="vertical-align:super;">Prendi in carico</span>
+                            </div>
+                            <div class="oriens_barcode_stop text-warning" style="display:none; cursor:pointer;" onclick="oriensTimesheet(false)">
+                                <span class="btn btn-large btn-warning o_scan_message o_scan_product text-uppercase" style="vertical-align:super;">Metti in pausa</span>
+                            </div>
+                        </div>
+                    </div>`;
+                    
+                    activeId = oriensGetActiveId();
+
+                    fetch('/barcode-api/is_cronometer_active?record_id=' + activeId + '&amp;cacheId=' + createCacheId())
+                    .then(response =&gt; { if (response.ok) { return response.text(); } else { throw new Error('Errore nella risposta del server'); }})
+                    .then(text =&gt; { 
+                      if (text === 'running') { oriensTimesheet(true); }
+                      if (text.includes('error')) { 
+                        const oriensTimeTracker = document.querySelector('div.o_barcode_timesheet_header');
+                        if (oriensTimeTracker) oriensTimeTracker.classList.add('d-none');
+                      }
+                    });
+                }, 200);
+            }
+            
+            /* Inizia il timer se viene selezionato qualche elemento dentro una riga */
+            if (node.nodeType === 1) {
+                if (node.matches('div.o_barcode_line_details') &amp;&amp; !node.dataset.oriensWatched) {
+                    node.dataset.oriensWatched = "true";
+                    node.addEventListener('click', () =&gt; oriensTimesheet(true), { passive: true });
+                }
+                const detailDivs = node.querySelectorAll('div.o_barcode_line_details:not([data-oriens-watched])');
+                detailDivs.forEach(function(detailDiv) {
+                    detailDiv.dataset.oriensWatched = "true";
+                    detailDiv.addEventListener('click', () =&gt; oriensTimesheet(true), { passive: true });
+                });
+            }
+            
+            /* Ferma il timer se viene selezionato il bottone Valida */
+            if (node.nodeType === 1 &amp;&amp; node.matches('button.btn.text-uppercase.o_validate_page')) {
+                const no_action_needed = regeneratePackageData();
+
+                node.addEventListener('click', function () {
+                    
+                    activeId = oriensGetActiveId();
+
+                    if (no_action_needed) fetch('/barcode-api/is_cronometer_active?record_id=' + activeId + '&amp;cacheId=' + createCacheId())
+                      .then(response =&gt; { if (response.ok) { return response.text(); } else { throw new Error('Errore nella risposta del server'); }})
+                      .then(text =&gt; { if (text === 'running') { oriensTimesheet(true); }});
+                      
+                    else oriensTimesheet(false);
+
+                    let title_btn = document.querySelector('span.o_title.o_navbar_text');
+                    if (title_btn &amp;&amp; title_btn.innerText &amp;&amp; title_btn.innerText.substr(0,4) == 'PACK') {
+                      let exit_btn = document.querySelector('button.o_exit');
+                      if (exit_btn) exit_btn.click();
+                    }
+
+                }, { passive: true });
+            }
+            if (node.nodeType === 1) {
+                const validateButton = node.querySelector('button.btn.text-uppercase.o_validate_page.btn-success:not([data-oriens-watched])');
+                if (validateButton) {
+                    console.log('DEBUG - trovato il bottone valida (in subtree)!');
+                    regeneratePackageData();
+
+                    const no_action_needed = regeneratePackageData();
+                    validateButton.dataset.oriensWatched = "true";
+
+                    validateButton.addEventListener('click', function () {
+                        
+                        activeId = oriensGetActiveId();
+
+                        if (no_action_needed) fetch('/barcode-api/is_cronometer_active?record_id=' + activeId + '&amp;cacheId=' + createCacheId())
+                          .then(response =&gt; { if (response.ok) { return response.text(); } else { throw new Error('Errore nella risposta del server'); }})
+                          .then(text =&gt; { if (text === 'running') { oriensTimesheet(true); }});
+                          
+                        else oriensTimesheet(false);
+                    }, { passive: true });
+                }
+            }
+                                        
+            if (node.classList &amp;&amp; node.classList.contains('o_barcode_line') &amp;&amp; !node.classList.contains('oriens_processed_barcode_line')) 
+                addProductDataDiv(node, node.querySelector('.product-label')?.innerText);
+
+        }
+        
+        oriensBarcodeFormId = false;
+
+        function getBarcodeFormDimesions() {
+            const elem_barcode_larghezza = document.querySelector('#barcode_larghezza');
+            const elem_barcode_altezza = document.querySelector('#barcode_altezza');
+            const elem_barcode_profondita = document.querySelector('#barcode_profondità');
+
+            if (elem_barcode_larghezza &amp;&amp; elem_barcode_altezza &amp;&amp; elem_barcode_profondita) {
+                const packing_number = !(typeof oriens_barcode_form_packing_number == 'undefined') 
+                  ? oriens_barcode_form_packing_number 
+                  : document.querySelector('#result_package_id')?.value;
+
+                fetch('/barcode-api/get-product-dimensions?record_id=' + packing_number + '&amp;cacheId=' + createCacheId())
+                .then(response =&gt; {
+                  if (response.ok) {return response.json()} else { console.log('Network response was not correct.'); }
+                }).then(data =&gt; {
+                  if (typeof data == 'object' &amp;&amp; data.hasOwnProperty('larghezza') &amp;&amp; data.hasOwnProperty('altezza') &amp;&amp; data.hasOwnProperty('profondita')) {
+                    elem_barcode_altezza.value = data.altezza;
+                    elem_barcode_larghezza.value = data.larghezza;
+                    elem_barcode_profondita.value = data.profondita;
+                  }
+                }).catch(error =&gt; {console.error('Custom Oriens API call error:', error);});      
+            }
+        }
+
+        function setBarcodeFormDimension(elem_id) {
+            const elem_dimension_value = document.querySelector('#barcode_' + elem_id)?.value;
+            const packing_number = !(typeof oriens_barcode_form_packing_number == 'undefined') 
+              ? oriens_barcode_form_packing_number 
+              : document.querySelector('#result_package_id')?.value;
+
+            if (typeof elem_dimension_value !== 'undefined') {
+                const post_form = new FormData();
+                post_form.append('record_id', packing_number);
+                post_form.append(elem_id, elem_dimension_value);
+                post_form.append('csrf_token', odoo.csrf_token); 
+                
+                fetch('/barcode-api/set-product-dimension', {method: 'POST', body: post_form})
+                .then(response =&gt; {
+                  if (response.ok) {return response.json()} else { console.log('Network response was not correct.'); }
+                }).then(data =&gt; {
+                  getBarcodeFormDimesions();
+                }).catch(error =&gt; {console.error('Custom Oriens API call error:', error);});      
+            }
+        }
+
+        function getBarcodeFormDescription() {
+            const elem_name = document.querySelector('#picking_id');
+            const elem_desc = document.querySelector('#barcode_descrizione');
+
+            if (elem_name &amp;&amp; elem_desc) {
+                fetch('/barcode-api/get-product-description?name=' + elem_name.value + '&amp;cacheId=' + createCacheId())
+                .then(response =&gt; {
+                  if (response.ok) {return response.json()} else { console.log('Network response was not correct.'); }
+                }).then(data =&gt; {
+                  if (typeof data == 'object' &amp;&amp; data.hasOwnProperty('descrizione')) elem_desc.value = stripHtml(data.descrizione);
+                }).catch(error =&gt; {console.error('Custom Oriens API call error:', error);});      
+            }
+        }
+
+        function setBarcodeFormDescription(elem_id) {
+            const elem_name = document.querySelector('#picking_id');
+            const elem_desc = document.querySelector('#barcode_descrizione');
+
+            if (elem_name &amp;&amp; elem_desc) {
+                const post_form = new FormData();
+                post_form.append('name', elem_name.value);
+                post_form.append('descrizione', elem_desc.value);
+                post_form.append('csrf_token', odoo.csrf_token); 
+                
+                fetch('/barcode-api/set-product-description', {method: 'POST', body: post_form})
+                .then(response =&gt; {
+                  if (response.ok) {return response.json()} else { console.log('Network response was not correct.'); }
+                }).then(data =&gt; {
+                  getBarcodeFormDimesions();
+                }).catch(error =&gt; {console.error('Custom Oriens API call error:', error);});      
+            }
+        }
+        
+        function handleBarcodeFormFields() {
+            const barcodeForm = document.querySelector('div.o_barcode_line_form');
+            if (barcodeForm) {
+                const productLink = barcodeForm.querySelector('div[name="product_id"] a.o_form_uri');
+                if (productLink &amp;&amp; productLink.href) {
+                
+                    const url = new URL(productLink.href);
+                    const hashParams = new URLSearchParams(url.hash.slice(1));
+
+                    const id = hashParams.get("id");
+                    const model = hashParams.get("model");
+
+                    const digipadDiv = barcodeForm.querySelector('div.o_widget_digipad');
+                    const digipad_batch = document.querySelector('#result_package_id');
+                    
+                    if (!document.querySelector('div.oriens-barcode-form-row')) {
+
+                        const firstRow = digipadDiv.closest('.row');
+                        if (firstRow) {
+
+                            function makeFieldHTML(name, label, bs_grid = '6', bs_width = '50', function_name = 'setBarcodeFormDimension') {
+                              const lc = label.toLowerCase();
+                              return `
+                                &lt;div class="col-12 col-md-${bs_grid} my-2 d-flex align-items-baseline"&gt;
+                                  &lt;p class="me-3 w-${bs_width}" title="${label}"&gt;${label}&lt;/p&gt;
+                                  &lt;div name="${name}" class="o_field_widget o_field_many2one w-100"&gt;
+                                    &lt;div class="o_field_many2one_selection"&gt;
+                                      &lt;div class="o_input_dropdown"&gt;
+                                        &lt;div class="o-autocomplete dropdown"&gt;
+                                          &lt;input type="text" class="o-autocomplete--input o_input" autocomplete="off" id="barcode_${lc}" placeholder="${label}" aria-expanded="false"&gt;
+                                        &lt;/div&gt;
+                                        &lt;a role="button" class="o_dropdown_button" draggable="false"&gt;&lt;/a&gt;
+                                      &lt;/div&gt;
+                                      &lt;button type="button" class="btn btn-secondary fa fa-pencil" tabindex="-1" draggable="false" aria-label="Internal link" data-tooltip="Aggiorna" onclick="${function_name}('${lc}');"/&gt;
+                                    &lt;/div&gt;
+                                    &lt;div class="o_field_many2one_extra"&gt;&lt;/div&gt;
+                                  &lt;/div&gt;
+                                &lt;/div&gt;
+                              `;
+                            }
+                            
+                            const barcode_packing_dimensions_fields = [['altezza',  'Altezza'], ['larghezza','Larghezza'], ['profondita','Lunghezza']];
+                            
+                            /* Form dimensions fields */
+                            const newFieldsRow = document.createElement('div');
+                            newFieldsRow.className = 'row oriens-barcode-form-row';
+
+                            firstRow.parentNode.insertBefore(newFieldsRow, firstRow.nextSibling);
+                            oriensBarcodeFormId = id;
+
+                            newFieldsRow.className = 'row oriens-barcode-form-row py-3 my-3 border rounded-3';
+                            const dimensionsWarning = '<div class="col-12 col-md-12 my-2 d-flex align-items-baseline d-none" id="dimensions_warning_div"><p class="me-3 w-100 text-danger fw-bold text-center">Attenzione: inserire tutte le dimensioni per continuare!</p></div>';
+                            newFieldsRow.innerHTML = dimensionsWarning + barcode_packing_dimensions_fields.map(([name, label]) =&gt; makeFieldHTML(name, label)).join('\n');
+                            firstRow.parentNode.insertBefore(newFieldsRow, firstRow.nextSibling);
+                            oriensBarcodeFormId = id;
+
+                            getBarcodeFormDimesions();
+
+                            /* Form description field */
+                            const newDescriptionRow = document.createElement('div');
+                            newDescriptionRow.className = 'row oriens-barcode-description-row py-3 my-3 border rounded-3';
+                            const descriptionWarning = '<div class="col-12 col-md-12 my-2 d-flex align-items-baseline d-none" id="dimensions_warning_div"><p class="me-3 w-100 text-danger fw-bold text-center">Attenzione: inserire tutte le dimensioni per continuare!</p></div>';
+                            firstRow.parentNode.insertBefore(newFieldsRow, firstRow.nextSibling);
+                            oriensBarcodeFormId = id;
+
+                            newDescriptionRow.innerHTML = descriptionWarning + makeFieldHTML('descrizione', 'Descrizione', '12', '25', 'setBarcodeFormDescription');
+                            newFieldsRow.parentNode.insertBefore(newDescriptionRow, newFieldsRow.nextSibling);
+                            oriensBarcodeFormId = id;
+
+                            getBarcodeFormDescription();
+                        }
+                    }
+                    /* observer.disconnect(); */
+                }
+            }
+        }
+        
+        function observeBarcodeMutations() {
+            const callback = function(mutationsList, observer) {
+                for (const mutation of mutationsList) {
+                    if (mutation.type === 'childList') {
+                        for (const node of mutation.addedNodes) {
+                            if (node.nodeType !== Node.ELEMENT_NODE) continue;
+                            if (node.matches?.('input') &amp;&amp;node.closest('div[name="result_package_id"]')
+                            ) {
+                                if (node &amp;&amp; oriens_barcode_form_packing_number != node.value) {
+                                  oriens_barcode_form_packing_number = node.value;
+                                  handleBarcodeFormFields();
+                                }
+                            }
+
+                            const inputs = node.querySelectorAll?.('input') || [];
+                            inputs.forEach(input =&gt; {
+                                if (input.closest('div[name="result_package_id"]')) {
+                                  if (node &amp;&amp; oriens_barcode_form_packing_number != node.value) {
+                                    oriens_barcode_form_packing_number = node.value;
+                                    handleBarcodeFormFields();
+                                  }
+                                }
+                            });
+
+                            if (node.classList?.contains('o_digipad_widget') || node.querySelector?.('.o_digipad_widget')) handleBarcodeFormFields();
+                        }
+                    }
+
+                    if (
+                        mutation.type === 'attributes' &amp;&amp;
+                        mutation.target.id === 'result_package_id'
+                    ) {
+                      if (mutation.target.value != oriens_barcode_form_packing_number) {
+                        oriens_barcode_form_packing_number = mutation.target.value;
+                        handleBarcodeFormFields();
+                      }
+                      
+                    }
+
+                  observeBarcodeMutations();
+
+                  /* NEW - END */
+
+                    /* Barcode list blocks */
+                    if (mutation.type === 'childList') {
+                        mutation.addedNodes.forEach(function(node) {
+                            if (node.nodeType === 1 &amp;&amp; node.classList.contains('o_barcode_line')) {
+                                updateBarcodeLineColor(node);
+                            }
+                        });
+        
+                        if (document.querySelectorAll('span.o_scan_product, span.o_scan_validate').length) {
+                            mutation.addedNodes.forEach(function(node) {
+                                oriensHandleNode(node);
+                                if (node.nodeType === 1) {
+                                    node.querySelectorAll('.o_barcode_line').forEach(oriensHandleNode);
+                                }
+                            });
+                        }
+                    }
+        
+                    if (mutation.type === 'attributes' &amp;&amp; mutation.target.classList.contains('qty-done')) {
+                        const barcodeLine = mutation.target.closest('.o_barcode_line');
+                        if (barcodeLine) {
+                            updateBarcodeLineColor(barcodeLine);
+                        }
+                    }
+                }
+            };
+        
+            function updateBarcodeLineColor(node) {
+                let is_oriens_yellow = false;
+                if (!node.classList.contains('o_line_completed')) {
+                    const qtyElement = node.querySelector('.qty-done');
+                    if (qtyElement) {
+                        const qty = parseFloat(qtyElement.textContent.trim()) || 0;
+                        if (qty &gt; 0) {
+                            node.style.backgroundColor = '#ffcc66';
+                            is_oriens_yellow = true;
+                        }
+                    }
+                }
+                if (!is_oriens_yellow) node.style.backgroundColor = '';
+            }
+        
+            if (typeof barcodeObserverActivated === 'undefined') {
+                barcodeObserverActivated = true;
+                const barcodeObserver = new MutationObserver(callback);
+                barcodeObserver.observe(document.body, {
+                    childList: true,
+                    subtree: true,
+                    attributes: true,
+                    attributeFilter: ['class']
+                });
+            }
+        }
+        
+        addProductDataToExisting(); 
+        elaboratePackedGoods(); 
+        observeBarcodeMutations(); 
+      </script>
+      
+      <script>
+        function oriensToggle (group_id) {
+           let group_jq = $('#' + group_id);
+           if (group_jq) {
+            let group_display_style = group_jq.css('display');
+            if (group_display_style == 'none') {
+              let group_title = $('#title-' + group_id);
+              if (group_title) {
+                group_title.text(group_title.text().replace('►', '▼'));
+                group_title.parent().removeClass('oriens-toggle');
+                group_title.parent().addClass('oriens-toggle-open');
+              }
+              group_jq.show();
+            }
+            if (group_display_style == 'block') {
+              let group_title = $('#title-' + group_id);
+              if (group_title) {
+                group_title.text(group_title.text().replace('▼', '►'));
+                group_title.parent().removeClass('oriens-toggle-open');
+                group_title.parent().addClass('oriens-toggle');
+              }
+              group_jq.hide();              
+            }
+          } 
+        }
+      </script>
+        
+    </xpath>
+</data>

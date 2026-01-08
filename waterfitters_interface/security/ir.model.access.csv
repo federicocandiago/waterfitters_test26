@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_industry_group,access_industry_group,model_industry_group,base.group_user,1,1,1,1
+access_wf_paymentterm,access_wf_paymentterm,model_wf_paymentterm,base.group_user,1,1,1,1
+access_wf_shippingmethod,access_wf_shippingmethod,model_wf_shippingmethod,base.group_user,1,1,1,1

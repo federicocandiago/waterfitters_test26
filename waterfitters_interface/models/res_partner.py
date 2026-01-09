@@ -26,6 +26,9 @@ class ResPartner(models.Model):
     wf_is_ready_to_sync = fields.Boolean('To be synched with WF?')
     wf_is_default_shipping_address = fields.Boolean('Is a default shipping address?', default=True)
 
+    def _extract_numeric_value(self, value):
+        return int(value) if isinstance(value, str) and value.isdigit() else None
+
     def sync_waterfitters_customers(self):
         batch_limit = self.env['ir.config_parameter'].sudo().get_param('waterfitters_customers_batch_limit')
         limit = int(batch_limit) if batch_limit else None
@@ -35,6 +38,10 @@ class ResPartner(models.Model):
         ).filtered(lambda p: any(so.name.startswith('OW') for so in p.sale_order_ids))
 
         if synchable_partner_ids: synchable_partner_ids.wf_post_customers()
+
+    def _get_address_code_from_erp_id(self, erp_id):
+        if isinstance(erp_id, str) and '_' in erp_id: return erp_id.split('_', 1)[1]
+        return ''
 
     def _get_new_resource_data(self, response):
         if response and 'json' in response:
@@ -159,8 +166,10 @@ class ResPartner(models.Model):
             # Tax Code Mapping
             is_taxable_str = partner_id.x_studio_assoggettamento_iva
 
-            non_taxable_keywords = ['N.IMP', 'NON', 'ESENTE', 'ESCLUSO', 'F.C.',
-                                    'FUORI']  # TODO: shouldn't be hardcoded
+            non_taxable_keywords = [
+                'N.IMP', 'NON', 'ESENTE', 'ESCLUSO', 'F.C.', 'FUORI'
+            ]  # TODO: shouldn't be hardcoded
+
             tax_code = 2 if is_taxable_str and any(k in is_taxable_str.upper() for k in non_taxable_keywords) else 1
 
             # Partner vat management
@@ -194,7 +203,7 @@ class ResPartner(models.Model):
             # Wf shipping method
             if partner_id.x_studio_many2one_field_GTsiS:  # TODO: studio field, to be edited
                 wf_shipping_method_id = self.env['wf.shippingmethod'].search([
-                    ('incoterm', '='.partner_id.x_studio_many2one_field_GTsiS.code)
+                    ('incoterm', '=', partner_id.x_studio_many2one_field_GTsiS.code)
                 ], limit=1)
                 if wf_shipping_method_id: attributes_dict['shippingMethod'] = wf_shipping_method_id.name
 
@@ -246,7 +255,7 @@ class ResPartner(models.Model):
                 # Case 2: POST it as a new record
                 customer_payload['data']['relationships']['origin']['data'] = {'type': 'waterfittersorigins', 'id': 'M'}
                 ### TODO - TO BE RESET IN THE FUTURE - WHEN SIGLA WILL NOT BE MASTER ANYMORE ####
-                # customer_payload['data']['attributes']['erp_exported_at'] = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
+
                 post_response = self._wf_payload_request('customers', customer_payload, token)
 
             if not partner_id.waterfitters_id: partner_id.waterfitters_id = self._get_new_resource_data(post_response)
@@ -260,12 +269,18 @@ class ResPartner(models.Model):
             billing_region_code = partner_id.state_id.code[:2].upper() if partner_id.state_id else None
             if not billing_region_code and billing_country_code == 'IT': billing_region_code = 'VI'
 
+            billing_erp_id = False
+            if partner_id.x_studio_codice_soggetto and '_' in partner_id.x_studio_codice_soggetto:
+                billing_erp_id = partner_id.x_studio_codice_soggetto
+            elif partner_id.x_studio_codice_soggetto:
+                billing_erp_id = f'{partner_id.x_studio_codice_soggetto}_0'
+
             billing_payload = self._build_customer_address(
                 partner_id.waterfitters_id, partner_id.name, partner_id.is_company, False,
                 billing_country_code,
                 partner_id.street, partner_id.street2, partner_id.city, partner_id.zip,
                 billing_region_code,
-                partner_id.x_studio_codice_soggetto
+                billing_erp_id
             )
 
             if not wf_billing_partner_id:
@@ -311,30 +326,60 @@ class ResPartner(models.Model):
             wf_shipping_ids = []
 
             for shipping_partner in shipping_partners:
-                shipping_country_code = shipping_partner.country_id.code[
-                                        :2].upper() if shipping_partner.country_id else 'IT'
+
+                shipping_partner_erp_id = shipping_partner.x_studio_codice_soggetto
+                if shipping_partner_erp_id and not shipping_partner.x_studio_codice_indirizzo_spedizione:
+
+                    # 2. Find other delivery addresses with same ERP id
+                    shipping_siblings = Partner.search([
+                        ('type', '=', 'delivery'),
+                        ('x_studio_codice_soggetto', '=', shipping_partner_erp_id),
+                        ('id', '!=', shipping_partner.id)
+                    ])
+
+                    numeric_codes = [
+                        self._extract_numeric_value(p.x_studio_codice_indirizzo_spedizione)
+                        for p in shipping_siblings
+                    ]
+                    numeric_codes = [n for n in numeric_codes if n is not None]
+
+                    shipping_address_next_code = max(numeric_codes) + 1 if numeric_codes else 1
+                    shipping_partner.x_studio_codice_indirizzo_spedizione = str(shipping_address_next_code)
+
+                shipping_country_code = 'IT'
+                if shipping_partner.country_id:
+                    shipping_country_code = shipping_partner.country_id.code[:2].upper() if shipping_partner.country_id else 'IT'
                 shipping_region_code = shipping_partner.state_id.code[:2].upper() if shipping_partner.state_id else None
+
                 if not shipping_region_code and shipping_country_code == 'IT': shipping_region_code = 'VI'
 
                 shipping_name = shipping_partner.name or partner_id.name
+                #shipping_erp_id = f"{shipping_partner.x_studio_codice_soggetto or ''}_{shipping_partner.x_studio_codice_indirizzo_spedizione or ''}"
+                shipping_erp_id = ''
+                if shipping_partner.x_studio_codice_soggetto:
+                    if '_' in shipping_partner.x_studio_codice_soggetto:
+                        shipping_erp_id = shipping_partner.x_studio_codice_soggetto
+                    elif shipping_partner.x_studio_codice_indirizzo_spedizione:
+                        shipping_erp_id = f'{shipping_partner.x_studio_codice_soggetto}_{shipping_partner.x_studio_codice_indirizzo_spedizione}'
+
                 shipping_payload = self._build_customer_address(
                     partner_id.waterfitters_id, shipping_name, shipping_partner.is_company, True, shipping_country_code,
                     shipping_partner.street, shipping_partner.street2, shipping_partner.city, shipping_partner.zip,
-                    shipping_region_code,
-                    shipping_partner.x_studio_codice_soggetto, shipping_partner.wf_is_default_shipping_address
+                    shipping_region_code, shipping_erp_id, shipping_partner.wf_is_default_shipping_address
                 )
+
+                wf_shipping_ids.append(str(new_shipping_address_id))
 
                 if not shipping_partner.waterfitters_id:
                     shipping_response = self._wf_payload_request('customeraddresses', shipping_payload, token)
                     new_shipping_address_id = self._get_new_resource_data(shipping_response)
                     shipping_partner.waterfitters_id = new_shipping_address_id
-                    if new_shipping_address_id: wf_shipping_ids.append(str(new_shipping_address_id))
+                    #if new_shipping_address_id: wf_shipping_ids.append(str(new_shipping_address_id))
                 else:
                     shipping_payload['data']['id'] = str(shipping_partner.waterfitters_id)
                     shipping_response = self._wf_payload_request('customeraddresses', shipping_payload, token, 'PATCH',
                                                                  shipping_partner.waterfitters_id)
-                    existing_shipping_address_id = self._get_new_resource_data(shipping_response)
-                    if existing_shipping_address_id: wf_shipping_ids.append(str(existing_shipping_address_id))
+                    self._get_new_resource_data(shipping_response)
 
                 _logger.info(_(f'shipping_payload POST payload: {shipping_payload}'))
                 _logger.info(_(f'shipping_response POST response: {shipping_response}'))
@@ -435,11 +480,9 @@ class ResPartner(models.Model):
                     if wf_term_id:
                         payment_term_id = PaymentTerm.search([('x_studio_codice', '=', wf_term_id.code)], limit=1)
 
-                if not payment_term_id: payment_term_id = PaymentTerm.search([('x_studio_codice', '=', 'CACR')],
-                                                                             limit=1)
-
-                _logger.warning(f'Payment payment_term_id: {payment_term_id}')
-                _logger.warning(f'Payment term_id: {term_id}')
+                if not payment_term_id: payment_term_id = PaymentTerm.search([
+                    ('x_studio_codice', '=', 'CACR')
+                ], limit=1)
 
                 # Customer Account
                 wf_account_id = self.get_relationship_id(token, partner_rel, 'account')
@@ -482,8 +525,8 @@ class ResPartner(models.Model):
                         'zip': billing_address.get('postalCode'),
                         'state_id': billing_address.get('odoo_region_id'),
                         'country_id': odoo_country_id.id if odoo_country_id else False,
-                        'name': partner_attrs.get('name') or _('Waterfitters customer ') + partner_attrs.get('email',
-                                                                                                             ''),
+                        'name': partner_attrs.get('name') or _('Waterfitters customer ')+partner_attrs.get('email',''),
+                        'x_studio_codice_indirizzo_spedizione': '0', # TODO: studio field, to be edited
                         'email': partner_attrs.get('email'),
                         'x_studio_codice_soggetto': partner_attrs.get('erp_id'),  # TODO: studio field, to be edited
                         'phone': partner_attrs.get('phone'),
@@ -609,10 +652,8 @@ class ResPartner(models.Model):
                             ('wf_customer_user_id', '=like', f'%,{wf_customer_user_id}')
                         ], limit=1)
 
-                        if not customer_user_id:
-                            Partner.create(customer_user_odoo_dict)
-                        else:
-                            customer_user_id.write(customer_user_odoo_dict)
+                        if not customer_user_id: Partner.create(customer_user_odoo_dict)
+                        else: customer_user_id.write(customer_user_odoo_dict)
 
                         customer_users_list.append(str(wf_customer_user_id))
 
@@ -623,6 +664,9 @@ class ResPartner(models.Model):
                     for shipping_address in shipping_addresses_list:
                         shipping_name = shipping_address.get('organization', _('Shipping Address'))
                         shipping_wf_id = shipping_address.get('wf_id')
+                        shipping_erp_id = shipping_address.get('erp_id')
+                        erp_subject = shipping_erp_id.split('_', 1)[0] if shipping_erp_id and '_' in shipping_erp_id else shipping_erp_id
+                        shipping_erp_address_code = self._get_address_code_from_erp_id(shipping_erp_id)
 
                         country_id = shipping_address.get('odoo_country_id')
                         fiscal_position_res = self._get_fiscal_position(shipping_address)
@@ -642,7 +686,8 @@ class ResPartner(models.Model):
                             'country_id': country_id.id if country_id else False,
                             'name': shipping_name,
                             'email': partner_attrs.get('email'),
-                            'x_studio_codice_soggetto': partner_attrs.get('erp_id'),  # TODO: studio field, to be edited
+                            'x_studio_codice_soggetto': erp_subject, # TODO: studio field, to be edited
+                            'x_studio_codice_indirizzo_spedizione': shipping_erp_address_code,
                             'phone': shipping_address.get('phone'),
                             'comment': _('Imported from Waterfitters on ') + now_string,
                             'waterfitters_id': shipping_wf_id,
@@ -653,11 +698,37 @@ class ResPartner(models.Model):
                         shipping_partner_id = Partner.search(
                             [('type', '=', 'delivery'), ('waterfitters_id', '=', shipping_wf_id)], limit=1)
 
+                        # Fallback: take the delivery address from erp_id and address_code
+                        if not shipping_partner_id:
+                            erp_code = shipping_address.get('erp_code')
+                            if isinstance(erp_code, str) and '_' in erp_code:
+                                erp_subject, erp_addr_code = erp_code.split('_', 1)
+                                erp_shipping_address_int = self._extract_numeric_value(erp_addr_code)
+
+                                domain = [
+                                    ('type', '=', 'delivery'),
+                                    ('x_studio_codice_soggetto', '=', erp_subject)
+                                ]
+                                candidate_shipping_partners = Partner.search(domain)
+
+                                if erp_shipping_address_int is not None and candidate_shipping_partners:
+                                    for shipping_candidate in candidate_shipping_partners:
+                                        shipping_candidate_int = self._extract_numeric_value(
+                                            shipping_candidate.x_studio_codice_indirizzo_spedizione)
+                                        if shipping_candidate_int == erp_shipping_address_int:
+                                            shipping_partner_id = shipping_candidate
+                                            break
+                                else:
+                                    shipping_partner_id = candidate_shipping_partners.filtered(
+                                        lambda p: p.x_studio_codice_indirizzo_spedizione == erp_addr_code)[:1]
+
+                        # In not even the fallback finds a correspondence, create a new one
                         if not shipping_partner_id:
                             shipping_partner_id = Partner.create(shipping_odoo_dict)
                             # property_account_position_id is edited after the full write to avoid triggering
-                            if shipping_partner_id: shipping_partner_id.write(
-                                {'property_account_position_id': fiscal_position})
+                            if shipping_partner_id: shipping_partner_id.write({
+                                'property_account_position_id': fiscal_position
+                            })
                             _logger.warning(f'shipping dict IN CREATE: {shipping_odoo_dict}')
                         else:
                             shipping_partner_id.write(shipping_odoo_dict)

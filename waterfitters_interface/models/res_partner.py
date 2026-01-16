@@ -368,13 +368,12 @@ class ResPartner(models.Model):
                     shipping_region_code, shipping_erp_id, shipping_partner.wf_is_default_shipping_address
                 )
 
+                new_shipping_address_id = self._get_new_resource_data(shipping_response)
                 wf_shipping_ids.append(str(new_shipping_address_id))
 
                 if not shipping_partner.waterfitters_id:
                     shipping_response = self._wf_payload_request('customeraddresses', shipping_payload, token)
-                    new_shipping_address_id = self._get_new_resource_data(shipping_response)
                     shipping_partner.waterfitters_id = new_shipping_address_id
-                    #if new_shipping_address_id: wf_shipping_ids.append(str(new_shipping_address_id))
                 else:
                     shipping_payload['data']['id'] = str(shipping_partner.waterfitters_id)
                     shipping_response = self._wf_payload_request('customeraddresses', shipping_payload, token, 'PATCH',
